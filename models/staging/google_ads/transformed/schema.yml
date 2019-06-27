@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_google_ads__campaign_data
+    description: This table contains performance and conversion data for Google Ads at the campaign level.
+    columns:
+      - name: account_id
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null

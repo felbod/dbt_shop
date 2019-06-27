@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_microsoft_ads__accounts
+    description: This table contains a list of accounts with Microsoft Ads.
+    columns:
+      - name: account_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_microsoft_ads__campaigns
+    description: This table contains a list of campaigns with Microsoft Ads.
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_microsoft_ads__campaign_performance
+    description: This table contains performance data for Microsoft Ads campaigns.
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
+
+  - name: stg_microsoft_ads__campaign_conversions
+    description: This table contains conversion data for Microsoft Ads campaigns.
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
