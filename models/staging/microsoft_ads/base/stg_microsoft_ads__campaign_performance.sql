@@ -1,11 +1,11 @@
-SELECT
-  accountid AS account_id,
-  campaignid AS campaign_id,
-  cast(timeperiod as date) AS date,
-  impressions AS impressions,
-  clicks AS clicks,
-  conversions AS conversions,
-  revenue AS conversion_value_eur,
-  spend AS cost_eur
-FROM
+select
+  accountid as account_id,
+  campaignid as campaign_id,
+  cast(timeperiod as date) as date,
+  impressions as impressions,
+  clicks as clicks,
+  conversions as conversions,
+  revenue as conversion_value_eur,
+  spend as cost_eur
+from
   `planar-depth-242012.microsoft_ads_stitch.campaign_performance_report`

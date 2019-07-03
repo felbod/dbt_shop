@@ -1,6 +1,6 @@
-SELECT
-  id AS account_id,
-  name AS account_name,
+select
+  id as account_id,
+  name as account_name,
   currencycode as account_currency_code
-FROM
+from
   `planar-depth-242012.microsoft_ads_stitch.accounts`

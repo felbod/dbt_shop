@@ -1,0 +1,18 @@
+# Deactivated due to OAuth problems when accessing Google sheets:
+# https://github.com/fishtown-analytics/dbt/issues/1518
+
+version: 2
+
+models:
+  - name: stg_backend__accounts_customer_type
+    description: This table contains backend conversion data by account.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), cast (campaign_id as string))"
+    columns:
+      - name: account
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null

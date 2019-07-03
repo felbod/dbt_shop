@@ -15,24 +15,60 @@ models:
 
   - name: stg_google_ads__campaign_conversions_customers
     description: This table contains conversion data for Google Ads campaigns, split by new and old customers.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), cast (campaign_id as string))"
     columns:
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads__accounts')
+              field: account_id
       - name: campaign_id
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_google_ads__campaigns')
+              field: campaign_id
 
   - name: stg_google_ads__campaign_conversions
     description: This table contains conversion data for Google Ads campaigns.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), cast (campaign_id as string), conversion_name)"
     columns:
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads__accounts')
+              field: account_id
       - name: campaign_id
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_google_ads__campaigns')
+              field: campaign_id
 
   - name: stg_google_ads__campaign_performance
     description: This table contains performance data for Google Ads campaigns.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), cast (campaign_id as string))"
     columns:
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads__accounts')
+              field: account_id
       - name: campaign_id
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_google_ads__campaigns')
+              field: campaign_id
 
   - name: stg_google_ads__campaigns
     description: This table contains a list of campaigns with Google Ads.

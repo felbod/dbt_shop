@@ -1,10 +1,10 @@
-SELECT
-  ExternalCustomerId AS account_id,
-  AccountDescriptiveName AS account_name,
-  AccountCurrencyCode AS account_currency_code
-FROM
+select
+  ExternalCustomerId as account_id,
+  AccountDescriptiveName as account_name,
+  AccountCurrencyCode as account_currency_code
+from
   `planar-depth-242012.google_ads.Customer_8644635112`
-WHERE
+where
   _DATA_DATE = _LATEST_DATE
-ORDER BY
-  ExternalCustomerId DESC
+order by
+  ExternalCustomerId desc

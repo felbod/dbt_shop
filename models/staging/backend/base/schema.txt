@@ -1,0 +1,49 @@
+# Deactivated due to OAuth problems when accessing Google sheets:
+# https://github.com/fishtown-analytics/dbt/issues/1518
+
+version: 2
+
+models:
+  - name: stg_backend__revenue_customer_type
+    description: This table contains backend revenue data by accounts.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), account)"
+    columns:
+      - name: account
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_backend__sales_customer_type
+    description: This table contains backend sales data by accounts.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), account)"
+    columns:
+      - name: account
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_backend__signups_customer_type
+    description: This table contains backend signups data by accounts.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), account)"
+    columns:
+      - name: account
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_backend__starts_customer_type
+    description: This table contains backend signups data by accounts.
+    tests:
+      - unique:
+          column_name: "concat(cast (date as string), account)"
+    columns:
+      - name: account
+        tests:
+          - unique
+          - not_null

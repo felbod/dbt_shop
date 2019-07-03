@@ -32,6 +32,7 @@ accounts as (
 )
 
 select
+  'Microsoft Ads' as platform_name,
   campaign_performance.account_id,
   campaign_performance.campaign_id,
 

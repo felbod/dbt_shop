@@ -1,25 +1,34 @@
-SELECT
+
+select
+  concat(cast (date as string), cast (CampaignId as string), ConversionTypeName) as id_me, # test
   ExternalCustomerId as account_id,
   CampaignId as campaign_id,
   Date as date,
   ConversionTypeName as conversion_name,
-  AllConversions as conversions,
-  AllConversionValue as conversion_value_usd,
+  sum(AllConversions) as conversions,
+  sum(AllConversionValue) as conversion_value_usd,
 IF
   (FORMAT_DATE("%g", Date) <> REGEXP_EXTRACT(ConversionTypeName, r"[0-9][0-9]$"),
     0,
-    1) AS is_new_customers,
+    1) as is_new_customers,
 IF
   (ConversionTypeName = "Signup",
-    AllConversions,
-    0) AS signups,
+    sum(AllConversions),
+    0) as signups,
 IF
   (STARTS_WITH(ConversionTypeName, "Start R"),
-    AllConversions,
-    0) AS starts,
+    sum(AllConversions),
+    0) as starts,
 IF
   (STARTS_WITH(ConversionTypeName, "Sale R"),
-    AllConversions,
-    0) AS sales
-FROM
+    sum(AllConversions),
+    0) as sales
+
+from
   `planar-depth-242012.google_ads.p_CampaignCrossDeviceConversionStats_8644635112`
+
+group by
+  ExternalCustomerId,
+  CampaignId,
+  Date,
+  ConversionTypeName

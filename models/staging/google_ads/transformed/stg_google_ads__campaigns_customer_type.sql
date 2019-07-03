@@ -32,6 +32,7 @@ accounts as (
 )
 
 select
+  'Google Ads' as platform_name,
   campaign_performance.account_id,
   campaign_performance.campaign_id,
 
@@ -46,7 +47,7 @@ select
   sum(campaign_performance.conversions) as conversions,
   sum(campaign_performance.conversion_value_usd) as conversion_value_usd,
   sum(campaign_performance.cost_usd) as cost_usd,
-  
+
   sum(campaign_conversions_customers.conversion_value_usd_new_customers) as conversion_value_usd_new_customers,
   sum(campaign_conversions_customers.conversion_value_usd_old_customers) as conversion_value_usd_old_customers,
   sum(campaign_conversions_customers.signups) as signups,

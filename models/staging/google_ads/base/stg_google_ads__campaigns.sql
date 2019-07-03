@@ -1,9 +1,9 @@
-SELECT
-  CampaignId AS campaign_id,
-  CampaignName AS campaign_name
-FROM
+select
+  CampaignId as campaign_id,
+  CampaignName as campaign_name
+from
   `planar-depth-242012.google_ads.Campaign_8644635112`
-WHERE
+where
   _DATA_DATE = _LATEST_DATE
-ORDER BY
-  CampaignId DESC
+order by
+  CampaignId desc
