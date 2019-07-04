@@ -7,20 +7,16 @@ select
   ConversionTypeName as conversion_name,
   sum(AllConversions) as conversions,
   sum(AllConversionValue) as conversion_value_usd,
-IF
-  (FORMAT_DATE("%g", Date) <> REGEXP_EXTRACT(ConversionTypeName, r"[0-9][0-9]$"),
+  if (FORMAT_DATE("%g", Date) <> REGEXP_EXTRACT(ConversionTypeName, r"[0-9][0-9]$"),
     0,
     1) as is_new_customers,
-IF
-  (ConversionTypeName = "Signup",
+  if (ConversionTypeName = "Signup",
     sum(AllConversions),
     0) as signups,
-IF
-  (STARTS_WITH(ConversionTypeName, "Start R"),
+  if (STARTS_WITH(ConversionTypeName, "Start R"),
     sum(AllConversions),
     0) as starts,
-IF
-  (STARTS_WITH(ConversionTypeName, "Sale R"),
+  if (STARTS_WITH(ConversionTypeName, "Sale R"),
     sum(AllConversions),
     0) as sales
 
