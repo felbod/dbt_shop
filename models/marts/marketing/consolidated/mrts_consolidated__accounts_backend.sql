@@ -44,6 +44,6 @@ FROM platform_data
   left join backend_data on platform_data.date = backend_data.date
     and platform_data.account_name = backend_data.account_name
 
-GROUP BY
+group by
   platform_data.date,
   platform_data.account_name

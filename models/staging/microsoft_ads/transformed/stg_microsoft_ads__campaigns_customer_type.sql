@@ -46,11 +46,16 @@ select
   sum(campaign_performance.clicks) as clicks,
   sum(campaign_performance.conversions) as conversions,
   sum(campaign_performance.conversion_value_eur) as conversion_value_eur,
+
   sum(campaign_performance.cost_eur) as cost_eur,
+  sum(campaign_performance.cost_per_click_eur) * sum(campaign_conversions_customers.clicks_old_customers) as cost_eur_old_customers,
+  sum(cost_eur) - sum(campaign_performance.cost_per_click_eur) * sum(campaign_conversions_customers.clicks_old_customers) as cost_eur_new_customers,
 
   sum(campaign_conversions_customers.conversion_value_eur_new_customers) as conversion_value_eur_new_customers,
   sum(campaign_conversions_customers.conversion_value_eur_old_customers) as conversion_value_eur_old_customers,
   sum(campaign_conversions_customers.signups) as signups,
+  sum(clicks) - sum(clicks_old_customers) as clicks_new_customers,
+  sum(campaign_conversions_customers.clicks_old_customers) as clicks_old_customers,
   sum(campaign_conversions_customers.starts_new_customers) as starts_new_customers,
   sum(campaign_conversions_customers.starts_old_customers) as starts_old_customers,
   sum(campaign_conversions_customers.sales_new_customers) as sales_new_customers,
