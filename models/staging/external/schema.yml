@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_external__exchange_rates
+    description: This table contains currency exchange rates from USD to EUR.
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique

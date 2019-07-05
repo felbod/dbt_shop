@@ -1,42 +1,42 @@
-WITH
-  sales_customers AS (
-  SELECT
-    'lohnsteuer-kompakt.de' AS account_name,
+with
+  sales_customers as (
+  select
+    'lohnsteuer-kompakt.de' as account_name,
     date,
-    lk_sales_old_customers AS sales_old_customers,
-    lk_sales_new_customers AS sales_new_customers
-  FROM
+    lk_sales_old_customers as sales_old_customers,
+    lk_sales_new_customers as sales_new_customers
+  from
     `planar-depth-242012.uploads.backend_sales`
-  UNION ALL
-  SELECT
-    'steuergo.de' AS account_name,
+  union all
+  select
+    'steuergo.de' as account_name,
     date,
-    sg_sales_old_customers AS sales_old_customers,
-    sg_sales_new_customers AS sales_new_customers
-  FROM
+    sg_sales_old_customers as sales_old_customers,
+    sg_sales_new_customers as sales_new_customers
+  from
     `planar-depth-242012.uploads.backend_sales`
-  UNION ALL
-  SELECT
-    'steuererklaerung-student.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-student.de' as account_name,
     date,
-    sst_sales_old_customers AS sales_old_customers,
-    sst_sales_new_customers AS sales_new_customers
-  FROM
+    sst_sales_old_customers as sales_old_customers,
+    sst_sales_new_customers as sales_new_customers
+  from
     `planar-depth-242012.uploads.backend_sales`
-  UNION ALL
-  SELECT
-    'steuererklaerung-polizei.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-polizei.de' as account_name,
     date,
-    spo_sales_old_customers AS sales_old_customers,
-    spo_sales_new_customers AS sales_new_customers
-  FROM
+    spo_sales_old_customers as sales_old_customers,
+    spo_sales_new_customers as sales_new_customers
+  from
     `planar-depth-242012.uploads.backend_sales`)
-SELECT
+select
   account_name,
   date,
-  CAST (replace (sales_old_customers, ".", "") AS numeric) AS sales_old_customers,
-  CAST (replace (sales_new_customers, ".", "") AS numeric) AS sales_new_customers
-FROM
+  cast (replace (sales_old_customers, ".", "") as numeric) as sales_old_customers,
+  cast (replace (sales_new_customers, ".", "") as numeric) as sales_new_customers
+from
   sales_customers
-ORDER BY
+order by
   date DESC

@@ -1,13 +1,13 @@
 
 select
-  concat(cast (date as string), cast (CampaignId as string), ConversionTypeName) as id_me, # test
+  concat(cast (date as string), cast (CampaignId as string), ConversionTypeName) as id_me,
   ExternalCustomerId as account_id,
   CampaignId as campaign_id,
   Date as date,
   ConversionTypeName as conversion_name,
   sum(AllConversions) as conversions,
   sum(AllConversionValue) as conversion_value_usd,
-  if (FORMAT_DATE("%g", Date) <> REGEXP_EXTRACT(ConversionTypeName, r"[0-9][0-9]$"),
+  if (FORMAT_DATE("%g", Date) <> regexp_extract(ConversionTypeName, r"[0-9][0-9]$"),
     0,
     1) as is_new_customers,
   if (ConversionTypeName = "Signup",

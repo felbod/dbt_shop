@@ -1,37 +1,37 @@
-WITH
-  signups_customers AS (
-  SELECT
-    'lohnsteuer-kompakt.de' AS account_name,
+with
+  signups_customers as (
+  select
+    'lohnsteuer-kompakt.de' as account_name,
     date,
-    lk_signups AS signups
-  FROM
+    lk_signups as signups
+  from
     `planar-depth-242012.uploads.backend_signups`
-  UNION ALL
-  SELECT
-    'steuergo.de' AS account_name,
+  union all
+  select
+    'steuergo.de' as account_name,
     date,
-    sg_signups AS signups
-  FROM
+    sg_signups as signups
+  from
     `planar-depth-242012.uploads.backend_signups`
-  UNION ALL
-  SELECT
-    'steuererklaerung-student.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-student.de' as account_name,
     date,
-    sst_signups AS signups
-  FROM
+    sst_signups as signups
+  from
     `planar-depth-242012.uploads.backend_signups`
-  UNION ALL
-  SELECT
-    'steuererklaerung-polizei.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-polizei.de' as account_name,
     date,
-    spo_signups AS signups
-  FROM
+    spo_signups as signups
+  from
     `planar-depth-242012.uploads.backend_signups`)
-SELECT
+select
   account_name,
   date,
-  CAST (replace (signups, ".", "") AS numeric) AS signups
-FROM
+  cast (replace (signups, ".", "") as numeric) as signups
+from
   signups_customers
-ORDER BY
+order by
   date DESC

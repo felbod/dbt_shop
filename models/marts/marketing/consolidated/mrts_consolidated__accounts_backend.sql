@@ -16,14 +16,15 @@ backend_data as (
 
 )
 
-SELECT
+select
   platform_data.date,
   platform_data.account_name,
   sum(platform_data.impressions) as impressions,
   sum(platform_data.clicks) as clicks,
   sum(platform_data.conversions) as conversions,
   sum(platform_data.conversion_value_usd) as conversion_value_usd,
-  sum(platform_data.cost_usd) as cost_usd,
+  --sum(platform_data.cost_usd) as cost_usd,
+  sum(platform_data.cost_eur) as cost_eur,
   sum(platform_data.conversion_value_usd_new_customers) as conversion_value_usd_new_customers,
   sum(platform_data.conversion_value_usd_old_customers) as conversion_value_usd_old_customers,
   sum(platform_data.signups) as signups,
@@ -40,7 +41,7 @@ SELECT
   sum(backend_data.starts_new_customers) as backend_starts_new_customers,
   sum(backend_data.signups) as backend_signups
 
-FROM platform_data
+from platform_data
   left join backend_data on platform_data.date = backend_data.date
     and platform_data.account_name = backend_data.account_name
 

@@ -1,42 +1,42 @@
-WITH
-  revenue_customers AS (
-  SELECT
-    'lohnsteuer-kompakt.de' AS account_name,
+with
+  revenue_customers as (
+  select
+    'lohnsteuer-kompakt.de' as account_name,
     date,
-    lk_gross_revenue_old_customers AS gross_revenue_old_customers,
-    lk_gross_revenue_new_customers AS gross_revenue_new_customers
-  FROM
+    lk_gross_revenue_old_customers as gross_revenue_old_customers,
+    lk_gross_revenue_new_customers as gross_revenue_new_customers
+  from
     `planar-depth-242012.uploads.backend_revenue`
-  UNION ALL
-  SELECT
-    'steuergo.de' AS account_name,
+  union all
+  select
+    'steuergo.de' as account_name,
     date,
-    sg_gross_revenue_old_customers AS gross_revenue_old_customers,
-    sg_gross_revenue_new_customers AS gross_revenue_new_customers
-  FROM
+    sg_gross_revenue_old_customers as gross_revenue_old_customers,
+    sg_gross_revenue_new_customers as gross_revenue_new_customers
+  from
     `planar-depth-242012.uploads.backend_revenue`
-  UNION ALL
-  SELECT
-    'steuererklaerung-student.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-student.de' as account_name,
     date,
-    sst_gross_revenue_old_customers AS gross_revenue_old_customers,
-    sst_gross_revenue_new_customers AS gross_revenue_new_customers
-  FROM
+    sst_gross_revenue_old_customers as gross_revenue_old_customers,
+    sst_gross_revenue_new_customers as gross_revenue_new_customers
+  from
     `planar-depth-242012.uploads.backend_revenue`
-  UNION ALL
-  SELECT
-    'steuererklaerung-polizei.de' AS account_name,
+  union all
+  select
+    'steuererklaerung-polizei.de' as account_name,
     date,
-    spo_gross_revenue_old_customers AS gross_revenue_old_customers,
-    spo_gross_revenue_new_customers AS gross_revenue_new_customers
-  FROM
+    spo_gross_revenue_old_customers as gross_revenue_old_customers,
+    spo_gross_revenue_new_customers as gross_revenue_new_customers
+  from
     `planar-depth-242012.uploads.backend_revenue`)
-SELECT
+select
   account_name,
   date,
-  CAST (replace (replace (gross_revenue_old_customers, ".", ""), ",", ".") AS numeric) / 1.19 AS revenue_old_customers,
-  CAST (replace (replace (gross_revenue_new_customers, ".", ""), ",", ".") AS numeric) / 1.19 AS revenue_new_customers
-FROM
+  cast (replace (replace (gross_revenue_old_customers, ".", ""), ",", ".") as numeric) / 1.19 as revenue_old_customers,
+  cast (replace (replace (gross_revenue_new_customers, ".", ""), ",", ".") as numeric) / 1.19 as revenue_new_customers
+from
   revenue_customers
-ORDER BY
+order by
   date DESC
