@@ -17,7 +17,7 @@ backend_data as (
 )
 
 select
-  platform_data.date,
+  platform_data.date_day,
   platform_data.account_name,
   sum(platform_data.impressions) as impressions,
   sum(platform_data.clicks) as clicks,
@@ -42,9 +42,9 @@ select
   sum(backend_data.signups) as backend_signups
 
 from platform_data
-  left join backend_data on platform_data.date = backend_data.date
+  left join backend_data on platform_data.date_day = backend_data.date
     and platform_data.account_name = backend_data.account_name
 
 group by
-  platform_data.date,
+  platform_data.date_day,
   platform_data.account_name

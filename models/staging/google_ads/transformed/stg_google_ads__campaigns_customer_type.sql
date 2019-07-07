@@ -48,7 +48,7 @@ select
 
   campaigns.campaign_name,
 
-  campaign_performance.date,
+  campaign_performance.date_day,
 
   sum(campaign_performance.impressions) as impressions,
   sum(campaign_performance.clicks) as clicks,
@@ -73,13 +73,13 @@ select
 from campaign_performance
   left join accounts on accounts.account_id = campaign_performance.account_id
   left join campaigns on campaigns.campaign_id = campaign_performance.campaign_id
-  left join campaign_conversions_customers on campaign_performance.date = campaign_conversions_customers.date
+  left join campaign_conversions_customers on campaign_performance.date_day = campaign_conversions_customers.date
     and campaign_performance.campaign_id = campaign_conversions_customers.campaign_id
-  left join exchange_rates on exchange_rates.day = campaign_performance.date
+  left join exchange_rates on exchange_rates.day = campaign_performance.date_day
 
 group by
   campaign_performance.account_id,
   campaign_performance.campaign_id,
-  campaign_performance.date,
+  campaign_performance.date_day,
   accounts.account_name,
   campaigns.campaign_name
