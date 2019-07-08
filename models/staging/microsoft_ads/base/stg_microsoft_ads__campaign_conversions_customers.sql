@@ -8,7 +8,7 @@ with campaign_conversions as (
 )
 
 select
-  date,
+  date_day,
   account_id,
   campaign_id,
   sum(signups) as signups,
@@ -23,6 +23,6 @@ select
 from campaign_conversions
 
 group by
-  date,
+  date_day,
   account_id,
   campaign_id

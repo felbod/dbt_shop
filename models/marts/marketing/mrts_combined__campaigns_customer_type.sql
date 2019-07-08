@@ -5,6 +5,12 @@ with campaign_performance as (
 
     from {{ref('stg_microsoft_ads__campaign_performance')}}
 
+  union all
+
+  select *
+
+    from {{ref('stg_google_ads__campaign_performance')}}
+
 ),
 
 campaign_conversions_customers as (
@@ -12,6 +18,12 @@ campaign_conversions_customers as (
   select *
 
     from {{ref('stg_microsoft_ads__campaign_conversions_customers')}}
+
+  union all
+
+  select *
+
+    from {{ref('stg_google_ads__campaign_conversions_customers')}}
 
 ),
 
@@ -21,6 +33,12 @@ campaigns as (
 
     from {{ref('stg_microsoft_ads__campaigns')}}
 
+  union all
+
+  select *
+
+    from {{ref('stg_google_ads__campaigns')}}
+
 ),
 
 accounts as (
@@ -29,10 +47,16 @@ accounts as (
 
     from {{ref('stg_microsoft_ads__accounts')}}
 
+  union all
+
+  select *
+
+    from {{ref('stg_google_ads__accounts')}}
+
 )
 
 select
-  'Microsoft Ads' as platform_name,
+  accounts.platform_name,
   campaign_performance.account_id,
   campaign_performance.campaign_id,
 
@@ -68,6 +92,7 @@ from campaign_performance
     and campaign_performance.campaign_id = campaign_conversions_customers.campaign_id
 
 group by
+  accounts.platform_name,
   campaign_performance.account_id,
   campaign_performance.campaign_id,
   campaign_performance.date_day,

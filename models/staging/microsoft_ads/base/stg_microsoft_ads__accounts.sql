@@ -1,4 +1,5 @@
 select
+  'Microsoft Ads' as platform_name,
   id as account_id,
   name as account_name,
   currencycode as account_currency_code

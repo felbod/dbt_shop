@@ -2,7 +2,7 @@
 select
   accountid as account_id,
   campaignid as campaign_id,
-  cast(timeperiod as date) as date,
+  cast(timeperiod as date) as date_day,
   impressions as impressions,
   clicks as clicks,
   conversions as conversions,

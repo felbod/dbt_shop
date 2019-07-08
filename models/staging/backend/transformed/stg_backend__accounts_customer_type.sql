@@ -33,7 +33,7 @@ backend_starts as (
 
 select
   backend_revenue.account_name,
-  backend_revenue.date,
+  backend_revenue.date_day,
   sum(backend_revenue.revenue_old_customers) as revenue_old_customers,
   sum(backend_revenue.revenue_new_customers) as revenue_new_customers,
 
@@ -46,13 +46,13 @@ select
   sum(backend_signups.signups) as signups
 
 from backend_revenue
-  left join backend_sales on backend_revenue.date = backend_sales.date
+  left join backend_sales on backend_revenue.date_day = backend_sales.date_day
     and backend_revenue.account_name = backend_sales.account_name
-  left join backend_signups on backend_revenue.date = backend_signups.date
+  left join backend_signups on backend_revenue.date_day = backend_signups.date_day
     and backend_revenue.account_name = backend_signups.account_name
-  left join backend_starts on backend_revenue.date = backend_starts.date
+  left join backend_starts on backend_revenue.date_day = backend_starts.date_day
     and backend_revenue.account_name = backend_starts.account_name
 
 group by
   backend_revenue.account_name,
-  backend_revenue.date
+  backend_revenue.date_day

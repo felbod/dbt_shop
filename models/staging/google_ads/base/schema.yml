@@ -17,7 +17,7 @@ models:
     description: This table contains conversion data for Google Ads campaigns, split by new and old customers.
     tests:
       - unique:
-          column_name: "concat(cast (date as string), cast (campaign_id as string))"
+          column_name: "concat(cast (date_day as string), cast (campaign_id as string))"
     columns:
       - name: account_id
         tests:
@@ -36,7 +36,7 @@ models:
     description: This table contains conversion data for Google Ads campaigns.
     tests:
       - unique:
-          column_name: "concat(cast (date as string), cast (campaign_id as string), conversion_name)"
+          column_name: "concat(cast (date_day as string), cast (campaign_id as string), conversion_name)"
     columns:
       - name: account_id
         tests:
@@ -55,7 +55,7 @@ models:
     description: This table contains performance data for Google Ads campaigns.
     tests:
       - unique:
-          column_name: "concat(cast (date as string), cast (campaign_id as string))"
+          column_name: "concat(cast (date_day as string), cast (campaign_id as string))"
     columns:
       - name: account_id
         tests:

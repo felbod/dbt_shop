@@ -16,11 +16,11 @@ models:
 #        tests:
 #          - not_null
 
-  - name: mrts_consolidated__campaigns_customer_type
+  - name: mrts_combined__campaigns_customer_type
     description: This table combines performance and conversion data for Google Ads and Microsoft Ads at the campaign level.
     tests:
       - unique:
-          column_name: "concat(cast (date as string), cast (account_id as string), cast (campaign_id as string), platform_name)"
+          column_name: "concat(cast (date_day as string), cast (account_id as string), cast (campaign_id as string), platform_name)"
     columns:
       - name: account_id
         tests:

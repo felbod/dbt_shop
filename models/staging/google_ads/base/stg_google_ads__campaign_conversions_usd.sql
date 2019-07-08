@@ -3,7 +3,7 @@ select
   concat(cast (date as string), cast (CampaignId as string), ConversionTypeName) as id_me,
   ExternalCustomerId as account_id,
   CampaignId as campaign_id,
-  Date as date,
+  Date as date_day,
   ConversionTypeName as conversion_name,
   sum(AllConversions) as conversions,
   sum(AllConversionValue) as conversion_value_usd,

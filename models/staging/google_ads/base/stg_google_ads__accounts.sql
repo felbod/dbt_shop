@@ -1,4 +1,5 @@
 select
+  'Google Ads' as platform_name,
   ExternalCustomerId as account_id,
   AccountDescriptiveName as account_name,
   AccountCurrencyCode as account_currency_code
