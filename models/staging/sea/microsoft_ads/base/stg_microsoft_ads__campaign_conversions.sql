@@ -1,3 +1,4 @@
+
 select
   accountid as account_id,
   campaignid as campaign_id,
@@ -21,5 +22,6 @@ if
   (STARTS_WITH(goal, "Sale R"),
     conversions,
     0) as sales
+
 from
   `planar-depth-242012.microsoft_ads_stitch.goals_and_funnels_report`

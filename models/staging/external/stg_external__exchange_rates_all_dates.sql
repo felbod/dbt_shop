@@ -18,11 +18,11 @@ with exchange_rates as (
 
     select
       min (date (timestamp (date_day))) min_date,
-      max (date (timestamp (date_day))) max_date
+      max (date (timestamp (current_date()))) today
 
     from exchange_rates
 
-  ), unnest (generate_date_array (min_date, max_date)) day
+  ), unnest (generate_date_array (min_date, today)) day
 
 )
 select
