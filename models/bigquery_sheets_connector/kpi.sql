@@ -36,10 +36,8 @@ FROM
   `planar-depth-242012.dbt_dev.mrts_combined__campaigns_customer_type`
 
 WHERE
---  date_day >= @DATE_MIN
   date_day >= @DATE_MIN AND
   date_day <= @DATE_MAX
-
 
 GROUP BY
   period,
