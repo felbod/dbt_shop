@@ -1,7 +1,7 @@
 
 with campaign_performance as (
 
-  select *
+  select * except (rank)
 
     from {{ref('stg_microsoft_ads__campaign_performance')}}
 
