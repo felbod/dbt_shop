@@ -8,6 +8,8 @@ select distinct
   o.id as campaign_id,
   o.name as campaign_name
 
+  
+
   from `planar-depth-242012.microsoft_ads_stitch.campaigns` as o
 
 inner join (

@@ -56,9 +56,8 @@ select
   accounts.account_name,
   campaigns.campaign_name,
   campaign_performance.date_day,
+  extract (year from campaign_performance.date_day) as date_year,
   sum (campaign_performance.impressions) as impressions,
-
-
 
   sum (campaign_performance.clicks) as clicks,
     sum (campaign_performance.clicks)
@@ -66,8 +65,6 @@ select
       as clicks_new_customers,
 
   sum (clicks_old_customers) as clicks_old_customers,
-
-
 
 
   sum (campaign_performance.conversions) as conversions,
@@ -108,4 +105,5 @@ group by
   campaign_performance.campaign_id,
   campaign_performance.date_day,
   accounts.account_name,
-  campaigns.campaign_name
+  campaigns.campaign_name,
+  date_year

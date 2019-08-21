@@ -1,4 +1,5 @@
 /*
+
 SELECT
   platform_name,
   account_id,
@@ -13,6 +14,7 @@ SELECT
     WHEN @PERIOD = 'DAY' THEN date_day
     END
   AS period,
+  date_year,
   SUM (impressions) AS impressions,
   SUM (clicks) AS clicks,
   SUM (clicks_new_customers) AS clicks_new_customers,
@@ -45,6 +47,7 @@ GROUP BY
   account_id,
   campaign_id,
   account_name,
-  campaign_name
+  campaign_name,
+  date_year
 
 */
