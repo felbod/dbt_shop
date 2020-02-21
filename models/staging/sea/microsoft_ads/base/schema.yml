@@ -23,15 +23,15 @@ models:
       - name: account_id
         tests:
           - not_null
-#          - relationships:
-#              to: ref('stg_microsoft_ads__accounts')
-#              field: account_id
+          - relationships:
+              to: ref('stg_microsoft_ads__accounts')
+              field: account_id
       - name: campaign_id
         tests:
           - not_null
-#          - relationships:
-#              to: ref('stg_microsoft_ads__campaigns')
-#              field: campaign_id
+          - relationships:
+              to: ref('stg_microsoft_ads__campaigns')
+              field: campaign_id
 
   - name: stg_microsoft_ads__campaign_conversions
     description: This table contains conversion data for Microsoft Ads campaigns.
@@ -39,12 +39,12 @@ models:
       - name: account_id
         tests:
           - not_null
-#          - relationships:
-#              to: ref('stg_microsoft_ads__accounts')
-#              field: account_id
+          - relationships:
+              to: ref('stg_microsoft_ads__accounts')
+              field: account_id
       - name: campaign_id
         tests:
           - not_null
-#          - relationships:
-#              to: ref('stg_microsoft_ads__campaigns')
-#              field: campaign_id
+          - relationships:
+              to: ref('stg_microsoft_ads__campaigns')
+              field: campaign_id
