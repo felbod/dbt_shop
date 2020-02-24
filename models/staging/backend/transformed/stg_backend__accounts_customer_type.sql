@@ -3,7 +3,7 @@ with backend_revenue as (
 
   select *
 
-    from {{ref('stg_backend__revenue_customer_type')}}
+    from {{ref('stg_backend__revenue_customer_type')}}    -- ersetzen durch neue Backend-Tabellen
 
 ),
 
@@ -11,7 +11,7 @@ backend_sales as (
 
   select *
 
-    from {{ref('stg_backend__sales_customer_type')}}
+    from {{ref('stg_backend__sales_customer_type')}}    -- ersetzen durch neue Backend-Tabellen
 
 ),
 
@@ -19,7 +19,7 @@ backend_signups as (
 
   select *
 
-    from {{ref('stg_backend__signups_customer_type')}}
+    from {{ref('stg_backend__signups_customer_type')}}    -- ersetzen durch neue Backend-Tabellen
 
 ),
 
@@ -27,7 +27,7 @@ backend_starts as (
 
   select *
 
-    from {{ref('stg_backend__starts_customer_type')}}
+    from {{ref('stg_backend__starts_customer_type')}}    -- ersetzen durch neue Backend-Tabellen
 
 )
 

@@ -1,4 +1,6 @@
 
+-- ersetzen durch neue Backend-Tabellen
+
 with
 
   signups_customers as (
