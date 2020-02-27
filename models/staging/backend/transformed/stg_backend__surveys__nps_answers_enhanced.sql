@@ -36,11 +36,12 @@ select
   nps_answers.nps_answer_id,
   nps_answers.nps_module_id,
   modules.module_text,
+  concat (nps_answers.nps_module_id, '_', modules.module_text) as question_id_stage,
   nps_answers.user_id,
-  date_diff(current_date(), date(users.created_at), year) as user_seniority,
+  date_diff(date(nps_answers.created_at), date(users.created_at), year) as user_seniority,
   case
-    when date_diff(current_date(), date(users.created_at), year) = 0 then 'new'
-    when date_diff(current_date(), date(users.created_at), year) > 0 then 'old'
+    when date_diff(date(nps_answers.created_at), date(users.created_at), year) = 0 then 'new'
+    when date_diff(date(nps_answers.created_at), date(users.created_at), year) > 0 then 'old'
   end as user_type,
   users.created_at as user_created_at,
   nps_answers.nps_answer_score,

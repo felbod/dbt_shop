@@ -42,4 +42,5 @@ select
 
 from
   campaign_performance_usd
-  left join exchange_rates on exchange_rates.date_day = campaign_performance_usd.date_day
+
+left join exchange_rates on exchange_rates.date_day = campaign_performance_usd.date_day

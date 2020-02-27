@@ -34,7 +34,11 @@ with
 
 select
   source_answers.user_id,
-  date_diff(current_date(), date(users.created_at), year) as user_seniority,
+  date_diff(date(source_answers.created_at), date(users.created_at), year) as user_seniority,
+  case
+    when date_diff(date(source_answers.created_at), date(users.created_at), year) = 0 then 'new'
+    when date_diff(date(source_answers.created_at), date(users.created_at), year) > 0 then 'old'
+  end as user_type,
   users.created_at as user_created_at,
   source_answers.source_option_id,
   options.option_text,

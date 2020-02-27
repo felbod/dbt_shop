@@ -29,7 +29,11 @@ select
   trustedshops_answers.controller_id,
   controllers.brand_name,
   trustedshops_answers.user_id,
-  date_diff(current_date(), date(users.created_at), year) as user_seniority,
+  date_diff(date(trustedshops_answers.created_at), date(users.created_at), year) as user_seniority,
+  case
+    when date_diff(date(trustedshops_answers.created_at), date(users.created_at), year) = 0 then 'new'
+    when date_diff(date(trustedshops_answers.created_at), date(users.created_at), year) > 0 then 'old'
+  end as user_type,
   users.created_at as user_created_at,
   trustedshops_answers.customer_action_id,
   trustedshops_answers.trustedshops_answer_score,
