@@ -12,7 +12,7 @@ with
 
     select *
 
-    from {{ref('stg_backend__users')}}
+    from {{ref('stg_backend__entities__users')}}
 
   ),
 
@@ -20,7 +20,7 @@ with
 
     select *
 
-    from {{ref('stg_backend__controllers')}}
+    from {{ref('stg_backend__entities__controllers')}}
 
   )
 

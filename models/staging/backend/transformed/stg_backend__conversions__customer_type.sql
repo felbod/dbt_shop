@@ -27,7 +27,7 @@ controllers as (
 
   select *
 
-  from {{ref('stg_backend__controllers')}}
+  from {{ref('stg_backend__entities__controllers')}}
 
 )
 

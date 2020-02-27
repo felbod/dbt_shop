@@ -1,5 +1,8 @@
-# Deactivated due to OAuth problems when accessing Google sheets:
-# https://github.com/fishtown-analytics/dbt/issues/1518
+# Deactivated
+#
+# To do:
+# - Delete retired models
+# - Setup new models for: conversions, entities, surveys
 
 version: 2
 
