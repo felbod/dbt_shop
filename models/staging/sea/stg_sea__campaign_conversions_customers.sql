@@ -7,7 +7,7 @@ with campaign_conversions as (
 
 union all
 
-  select *, 'Microsoft Ads' as platform
+  select * except (rank), 'Microsoft Ads' as platform
 
     from {{ref('stg_microsoft_ads__campaign_conversions')}}
 )

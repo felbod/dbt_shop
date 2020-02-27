@@ -1,9 +1,33 @@
 
 with platform_data as (
 
-  select *
+  select
+#    platform_name,
+#    account_id,
+    account_name,
+    brand_name,
+    date_day,
+    sum(impressions) as impressions,
+    sum(clicks) as clicks,
+    sum(conversions) as conversions,
+    sum(conversion_value_eur) as conversion_value_eur,
+    sum(cost_eur) as cost_eur,
+    sum(cost_eur_new_customers) as cost_eur_new_customers,
+    sum(cost_eur_old_customers) as cost_eur_old_customers,
+    sum(conversion_value_eur_new_customers) as conversion_value_eur_new_customers,
+    sum(conversion_value_eur_old_customers) as conversion_value_eur_old_customers,
+    sum(signups) as signups,
+    sum(starts_new_customers) as starts_new_customers,
+    sum(starts_old_customers) as starts_old_customers,
+    sum(sales_new_customers) as sales_new_customers,
+    sum(sales_old_customers) as sales_old_customers
 
-    from {{ref('mrts_combined__campaigns_customer_type')}}
+  from {{ref('mrts_combined__campaigns_customer_type')}}
+
+  group by
+#    platform_name,
+#    account_id,
+    account_name, brand_name, date_day
 
 ),
 
@@ -11,18 +35,22 @@ backend_data as (
 
   select *
 
-    from {{ref('stg_backend__accounts_customer_type')}}
+  from {{ref('stg_backend__conversions__customer_type')}}
 
 )
 
 select
   platform_data.date_day,
+  extract (year from platform_data.date_day) as date_year,
   platform_data.account_name,
+  platform_data.brand_name,
   sum(platform_data.impressions) as impressions,
   sum(platform_data.clicks) as clicks,
   sum(platform_data.conversions) as conversions,
   sum(platform_data.conversion_value_eur) as conversion_value_eur,
-  sum(platform_data.cost_eur) as cost_eur,
+  - sum(platform_data.cost_eur) as cost_eur,
+  - sum(platform_data.cost_eur_new_customers) as cost_eur_new_customers,
+  - sum(platform_data.cost_eur_old_customers) as cost_eur_old_customers,
   sum(platform_data.conversion_value_eur_new_customers) as conversion_value_eur_new_customers,
   sum(platform_data.conversion_value_eur_old_customers) as conversion_value_eur_old_customers,
   sum(platform_data.signups) as signups,
@@ -30,18 +58,21 @@ select
   sum(platform_data.starts_old_customers) as starts_old_customers,
   sum(platform_data.sales_new_customers) as sales_new_customers,
   sum(platform_data.sales_old_customers) as sales_old_customers,
-  sum(backend_data.revenue_old_customers) as backend_revenue_old_customers,
-  sum(backend_data.revenue_new_customers) as backend_revenue_new_customers,
+  sum(backend_data.revenue_net_eur_old_customers) as backend_revenue_net_eur_old_customers,
+  sum(backend_data.revenue_net_eur_new_customers) as backend_revenue_net_eur_new_customers,
   sum(backend_data.sales_old_customers) as backend_sales_old_customers,
   sum(backend_data.sales_new_customers) as backend_sales_new_customers,
   sum(backend_data.starts_old_customers) as backend_starts_old_customers,
   sum(backend_data.starts_new_customers) as backend_starts_new_customers,
-  sum(backend_data.signups) as backend_signups
+  sum(backend_data.signups_new_customers) as backend_signups_new_customers,
+  sum(backend_data.revenue_net_eur_new_customers) - sum(platform_data.cost_eur_new_customers) as real_profit_new_customers
 
 from platform_data
   left join backend_data on platform_data.date_day = backend_data.date_day
-    and platform_data.account_name = backend_data.account_name
+    and platform_data.account_name = backend_data.brand_name
 
 group by
   platform_data.date_day,
-  platform_data.account_name
+  account_name,
+  brand_name,
+  date_year
