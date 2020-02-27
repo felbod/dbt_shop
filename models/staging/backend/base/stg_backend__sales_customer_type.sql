@@ -1,4 +1,6 @@
 
+-- ersetzen durch neue Backend-Tabellen
+
 with
 
   sales_customers as (
