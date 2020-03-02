@@ -13,7 +13,7 @@ select
   transactions as sales
 
   from
-    `planar-depth-242012.google_analytics_stitch__landingpages__4.report`
+    `planar-depth-242012.google_analytics__stitch__landingpages__4.report`
 
   where
     sourcemedium = 'google / organic'
@@ -31,7 +31,7 @@ select
   transactions as sales
 
   from
-    `planar-depth-242012.google_analytics_stitch__landingpages__5.report`
+    `planar-depth-242012.google_analytics__stitch__landingpages__5.report`
 
   where
     sourcemedium = 'google / organic'
@@ -49,7 +49,7 @@ select
   transactions as sales
 
   from
-    `planar-depth-242012.google_analytics_stitch__landingpages__501.report`
+    `planar-depth-242012.google_analytics__stitch__landingpages__501.report`
 
   where
     sourcemedium = 'google / organic'
@@ -67,7 +67,7 @@ select
   transactions as sales
 
   from
-    `planar-depth-242012.google_analytics_stitch__landingpages__504.report`
+    `planar-depth-242012.google_analytics__stitch__landingpages__504.report`
 
   where
     sourcemedium = 'google / organic'
