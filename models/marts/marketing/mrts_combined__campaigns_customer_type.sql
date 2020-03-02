@@ -7,7 +7,7 @@ with campaign_performance as (
 
   union all
 
-  select *
+  select * except (cost_usd)
 
     from {{ref('stg_google_ads__campaign_performance')}}
 

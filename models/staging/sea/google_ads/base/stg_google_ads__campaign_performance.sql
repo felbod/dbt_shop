@@ -30,15 +30,16 @@ exchange_rates as (
 )
 
 select
-  account_id,
-  campaign_id,
+  campaign_performance_usd.account_id,
+  campaign_performance_usd.campaign_id,
   campaign_performance_usd.date_day,
-  impressions,
-  clicks,
-  conversions,
-  conversion_value_usd / exchange_rate_eur_usd as conversion_value_eur,
-  cost_usd / exchange_rate_eur_usd as cost_eur,
-  safe_divide (cost_usd, clicks) / exchange_rate_eur_usd as cost_per_click_eur
+  campaign_performance_usd.impressions,
+  campaign_performance_usd.clicks,
+  campaign_performance_usd.conversions,
+  campaign_performance_usd.conversion_value_usd / exchange_rates.exchange_rate_eur_usd as conversion_value_eur,
+  campaign_performance_usd.cost_usd,
+  campaign_performance_usd.cost_usd / exchange_rates.exchange_rate_eur_usd as cost_eur,
+  safe_divide (campaign_performance_usd.cost_usd, campaign_performance_usd.clicks) / exchange_rates.exchange_rate_eur_usd as cost_per_click_eur
 
 from
   campaign_performance_usd
