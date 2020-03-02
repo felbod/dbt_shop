@@ -5,7 +5,7 @@ select
   user_id,
   kundenaction_id as customer_action_id,
   score as nps_answer_score,
-  text as nps_answer_comment,
+  replace(replace(replace(replace(text, 'Ã¤', 'ä'), 'Ã¶', 'ö'), 'Ã¼', 'ü'), 'Ã', 'Ü)') as nps_answer_comment,
   controller as controller_id,
   culture as culture_short,
   created_at,
