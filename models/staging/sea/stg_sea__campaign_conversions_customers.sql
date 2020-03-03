@@ -26,13 +26,13 @@ select
   sum (if (is_new_customers = 1, 0, conversions))
     as clicks_old_customers, -- Assumption: 1 click per conversion by old customers
   sum (starts) as starts,
-  sum (is_new_customers * starts) as starts_new_customers,
+  sum (is_new_customers * starts) as starts__new_customers,
   sum (if (is_new_customers = 1, 0, starts))
-    as starts_old_customers,
+    as starts__old_customers,
   sum (sales) as sales,
-  sum (is_new_customers * sales) as sales_new_customers,
+  sum (is_new_customers * sales) as sales__new_customers,
   sum (if (is_new_customers = 1, 0, sales))
-    as sales_old_customers
+    as sales__old_customers
 
 from campaign_conversions
 

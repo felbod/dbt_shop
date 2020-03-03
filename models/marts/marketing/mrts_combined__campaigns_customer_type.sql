@@ -72,11 +72,11 @@ select
     sum (campaign_performance.cost_per_click_eur) * if (sum (campaign_conversions_customers.clicks_old_customers) is null, 0, sum (campaign_conversions_customers.clicks_old_customers)) as cost_eur_old_customers,
   sum (campaign_conversions_customers.signups) as signups,
   sum (campaign_conversions_customers.starts) as starts,
-    sum (campaign_conversions_customers.starts_new_customers) as starts_new_customers,
-    sum (campaign_conversions_customers.starts_old_customers) as starts_old_customers,
+    sum (campaign_conversions_customers.starts__new_customers) as starts__new_customers,
+    sum (campaign_conversions_customers.starts__old_customers) as starts__old_customers,
   sum (campaign_conversions_customers.sales) as sales,
-    sum (campaign_conversions_customers.sales_new_customers) as sales_new_customers,
-    sum (campaign_conversions_customers.sales_old_customers) as sales_old_customers,
+    sum (campaign_conversions_customers.sales__new_customers) as sales__new_customers,
+    sum (campaign_conversions_customers.sales__old_customers) as sales__old_customers,
 
   safe_divide ( sum(campaign_performance.cost_eur), sum(campaign_performance.clicks)) as cost_per_click_eur
 

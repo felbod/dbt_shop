@@ -17,10 +17,10 @@ with platform_data as (
     sum(conversion_value_eur_new_customers) as conversion_value_eur_new_customers,
     sum(conversion_value_eur_old_customers) as conversion_value_eur_old_customers,
     sum(signups) as signups,
-    sum(starts_new_customers) as starts_new_customers,
-    sum(starts_old_customers) as starts_old_customers,
-    sum(sales_new_customers) as sales_new_customers,
-    sum(sales_old_customers) as sales_old_customers
+    sum(starts__new_customers) as starts__new_customers,
+    sum(starts__old_customers) as starts__old_customers,
+    sum(sales__new_customers) as sales__new_customers,
+    sum(sales__old_customers) as sales__old_customers
 
   from {{ref('mrts_combined__campaigns_customer_type')}}
 
@@ -54,18 +54,18 @@ select
   sum(platform_data.conversion_value_eur_new_customers) as conversion_value_eur_new_customers,
   sum(platform_data.conversion_value_eur_old_customers) as conversion_value_eur_old_customers,
   sum(platform_data.signups) as signups,
-  sum(platform_data.starts_new_customers) as starts_new_customers,
-  sum(platform_data.starts_old_customers) as starts_old_customers,
-  sum(platform_data.sales_new_customers) as sales_new_customers,
-  sum(platform_data.sales_old_customers) as sales_old_customers,
-  sum(backend_data.revenue_net_eur_old_customers) as backend_revenue_net_eur_old_customers,
-  sum(backend_data.revenue_net_eur_new_customers) as backend_revenue_net_eur_new_customers,
-  sum(backend_data.sales_old_customers) as backend_sales_old_customers,
-  sum(backend_data.sales_new_customers) as backend_sales_new_customers,
-  sum(backend_data.starts_old_customers) as backend_starts_old_customers,
-  sum(backend_data.starts_new_customers) as backend_starts_new_customers,
-  sum(backend_data.signups_new_customers) as backend_signups_new_customers,
-  sum(backend_data.revenue_net_eur_new_customers) - sum(platform_data.cost_eur_new_customers) as real_profit_new_customers
+  sum(platform_data.starts__new_customers) as starts__new_customers,
+  sum(platform_data.starts__old_customers) as starts__old_customers,
+  sum(platform_data.sales__new_customers) as sales__new_customers,
+  sum(platform_data.sales__old_customers) as sales__old_customers,
+  sum(backend_data.revenue_net_eur__old_customers) as backend_revenue_net_eur__old_customers,
+  sum(backend_data.revenue_net_eur__new_customers) as backend_revenue_net_eur__new_customers,
+  sum(backend_data.sales__old_customers) as backend_sales__old_customers,
+  sum(backend_data.sales__new_customers) as backend_sales_new_customers,
+  sum(backend_data.starts__old_customers) as backend_starts__old_customers,
+  sum(backend_data.starts__new_customers) as backend_starts__new_customers,
+  sum(backend_data.signups__new_customers) as backend_signups__new_customers,
+  sum(backend_data.revenue_net_eur__new_customers) - sum(platform_data.cost_eur_new_customers) as real_profit_new_customers
 
 from platform_data
   left join backend_data on platform_data.date_day = backend_data.date_day
