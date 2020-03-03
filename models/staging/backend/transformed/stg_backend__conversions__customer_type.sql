@@ -35,6 +35,7 @@ select
   backend_sales.date_day
   , backend_sales.controller_id
   , controllers.brand_name
+
   , backend_sales.revenue_net_eur__old_customers as revenue_net_eur__old_customers
   , backend_sales.revenue_net_eur__new_customers as revenue_net_eur__new_customers
   , backend_sales.sales__old_customers as sales__old_customers
@@ -42,6 +43,19 @@ select
   , backend_starts.starts__old_customers as starts__old_customers
   , backend_starts.starts__new_customers as starts__new_customers
   , backend_signups.signups__new_customers as signups__new_customers
+
+  , safe_divide(backend_sales.sales__old_customers, backend_starts.starts__old_customers) as sale_rate__old_customers
+  , safe_divide(backend_sales.sales__new_customers, backend_starts.starts__new_customers) as sale_rate__new_customers
+
+  , safe_divide(backend_starts.starts__new_customers, backend_signups.signups__new_customers) as start_rate__new_customers
+
+-- to do: erst avg bilden, dann teilen
+  , AVG(safe_divide(backend_starts.starts__new_customers, backend_signups.signups__new_customers))
+    OVER (
+      partition by backend_sales.controller_id
+      ORDER BY backend_sales.date_day asc
+      ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)
+    as start_rate__new_customers__7_ma
 
 from backend_sales
   left join backend_signups on backend_sales.date_day = backend_signups.date_day
@@ -51,5 +65,5 @@ from backend_sales
   left join controllers on backend_sales.controller_id = controllers.controller_id
 
   order by
-    controller_id
-    , date_day desc
+    date_day desc
+    , controller_id
