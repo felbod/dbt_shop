@@ -2,7 +2,7 @@
 select
   uid as trustedshops_answer_id,
   controller as controller_id,
-  kunde_id as user_id,
+  kunde_id as customer_id,
   kundenaction_id as customer_action_id,
   mark as trustedshops_answer_score,
   orderReference as trustedshops_order_reference,
