@@ -33,21 +33,23 @@ with
   )
 
 select
-  source_answers.user_id,
-  date_diff(date(source_answers.created_at), date(users.created_at), year) as user_seniority,
-  case
-    when date_diff(date(source_answers.created_at), date(users.created_at), year) = 0 then 'new'
-    when date_diff(date(source_answers.created_at), date(users.created_at), year) > 0 then 'old'
-  end as user_type,
-  users.created_at as user_created_at,
-  source_answers.source_option_id,
-  options.option_text,
-  source_answers.customer_action_id,
-  source_answers.source_answer_comment,
-  source_answers.controller_id,
-  controllers.brand_name,
-  source_answers.culture_short,
-  source_answers.created_at
+  source_answers.user_id
+  , date_diff(date(source_answers.created_at), date(users.created_at), year) as user_seniority
+  , case
+      when date_diff(date(source_answers.created_at), date(users.created_at), year) = 0 then 'new'
+      when date_diff(date(source_answers.created_at), date(users.created_at), year) > 0 then 'old'
+    end as user_type
+  , users.created_at as user_created_at
+  , source_answers.source_option_id
+  , options.option_text
+  , source_answers.customer_action_id
+  , source_answers.source_answer_comment
+  , source_answers.controller_id
+  , controllers.brand_name
+  , source_answers.culture_short
+  , source_answers.created_at
+  , date(source_answers.created_at) as date_day
+  , extract (year from source_answers.created_at) as date_year
 
 from source_answers
   left join users on source_answers.user_id = users.user_id
