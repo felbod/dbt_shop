@@ -38,7 +38,7 @@ select
   , trustedshops_answers.customer_action_id
   , trustedshops_answers.trustedshops_answer_score
   , trustedshops_answers.trustedshops_order_reference
-  , IF(
+  , if(
       REGEXP_CONTAINS(trustedshops_answers.trustedshops_order_reference, '[0-9]{1,}[a-z]{1}$'),
         REGEXP_REPLACE(trustedshops_answers.trustedshops_order_reference, '([0-9]{1,})([a-z]{1})', '\\2'),
         '')
@@ -46,7 +46,7 @@ select
   , trustedshops_answers.created_at
   , date(trustedshops_answers.created_at) as date_day
   , extract (year from trustedshops_answers.created_at) as date_year
---  , trustedshops_answers.trustedshops_answer_comment
+  , length(trustedshops_answers.trustedshops_answer_comment) as trustedshops_answer_comment_length
   , replace(
       replace(
         replace(

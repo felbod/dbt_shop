@@ -1,36 +1,13 @@
 
 with
   nps_answers as (
-
-    select *
-
-    from {{ref('stg_backend__surveys__nps_answers')}}
-
-  ),
-
-  users as (
-
-    select *
-
-    from {{ref('stg_backend__entities__users')}}
-
-  ),
-
-  modules as (
-
-    select *
-
-    from {{ref('stg_backend__surveys__nps_modules')}}
-
-  ),
-
-  controllers as (
-
-    select *
-
-    from {{ref('stg_backend__entities__controllers')}}
-
-  )
+    select * from {{ref('stg_backend__surveys__nps_answers')}})
+  , users as (
+    select * from {{ref('stg_backend__entities__users')}})
+  , modules as (
+    select * from {{ref('stg_backend__surveys__nps_modules')}})
+  , controllers as (
+    select * from {{ref('stg_backend__entities__controllers')}})
 
 select
   nps_answers.nps_answer_id
@@ -56,6 +33,7 @@ select
   , nps_answers.created_at
   , date(nps_answers.created_at) as date_day
   , extract (year from nps_answers.created_at) as date_year
+  , length(nps_answers.nps_answer_comment) as nps_answer_comment_length
   , nps_answers.nps_answer_comment
 
 from nps_answers

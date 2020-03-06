@@ -43,6 +43,7 @@ select
   , source_answers.source_option_id
   , options.option_text
   , source_answers.customer_action_id
+  , length(source_answers.source_answer_comment) as source_answer_comment_length
   , source_answers.source_answer_comment
   , source_answers.controller_id
   , controllers.brand_name
