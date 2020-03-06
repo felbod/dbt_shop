@@ -95,8 +95,6 @@ select
   , sum(campaign_conversions_customers.sales__new_customers) as sales__new_customers
   , sum(campaign_conversions_customers.sales__old_customers) as sales__old_customers
 
-  -- , safe_divide ( sum(campaign_performance.cost_eur), sum(campaign_performance.clicks)) as cost_per_click_eur
-
 from campaign_performance
   left join accounts on accounts.account_id = campaign_performance.account_id
   left join campaigns on campaigns.campaign_id = campaign_performance.campaign_id

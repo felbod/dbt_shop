@@ -1,54 +1,47 @@
 
-with backend_sales as (
-
-  select *
-
-    from {{ref('stg_backend__conversions__sales')}}
-
-),
-
-backend_signups as (
-
-  select *
-
-    from {{ref('stg_backend__conversions__signups')}}
-
-),
-
-backend_starts as (
-
-  select *
-
-    from {{ref('stg_backend__conversions__starts')}}
-
-),
-
-controllers as (
-
-  select *
-
-  from {{ref('stg_backend__entities__controllers')}}
-
-)
+with
+  backend_sales as (
+    select * from {{ref('stg_backend__conversions__sales')}})
+  , backend_signups as (
+    select * from {{ref('stg_backend__conversions__signups')}})
+  , backend_starts as (
+    select * from {{ref('stg_backend__conversions__starts')}})
+  , controllers as (
+    select * from {{ref('stg_backend__entities__controllers')}})
 
 select
   backend_sales.date_day
+  , extract (year from backend_sales.date_day) as date_year
   , backend_sales.controller_id
   , controllers.brand_name
-
+  , (backend_sales.revenue_net_eur__old_customers
+    + backend_sales.revenue_net_eur__new_customers)
+    as revenue_net_eur
   , backend_sales.revenue_net_eur__old_customers as revenue_net_eur__old_customers
   , backend_sales.revenue_net_eur__new_customers as revenue_net_eur__new_customers
+  , (backend_sales.sales__old_customers
+    + backend_sales.sales__new_customers)
+    as sales
   , backend_sales.sales__old_customers as sales__old_customers
   , backend_sales.sales__new_customers as sales__new_customers
+  , (backend_starts.starts__old_customers
+    + backend_starts.starts__new_customers)
+    as starts
   , backend_starts.starts__old_customers as starts__old_customers
   , backend_starts.starts__new_customers as starts__new_customers
   , backend_signups.signups__new_customers as signups__new_customers
-
-  , safe_divide(backend_sales.sales__old_customers, backend_starts.starts__old_customers) as sale_rate__old_customers
-  , safe_divide(backend_sales.sales__new_customers, backend_starts.starts__new_customers) as sale_rate__new_customers
-
-  , safe_divide(backend_starts.starts__new_customers, backend_signups.signups__new_customers) as start_rate__new_customers
-
+  , safe_divide(
+      backend_sales.sales__old_customers,
+      backend_starts.starts__old_customers)
+      as sale_rate__old_customers
+  , safe_divide(
+      backend_sales.sales__new_customers,
+      backend_starts.starts__new_customers)
+      as sale_rate__new_customers
+  , safe_divide(
+      backend_starts.starts__new_customers,
+      backend_signups.signups__new_customers)
+      as start_rate__new_customers
 -- to do: erst avg bilden, dann teilen
   , AVG(safe_divide(backend_starts.starts__new_customers, backend_signups.signups__new_customers))
     OVER (
