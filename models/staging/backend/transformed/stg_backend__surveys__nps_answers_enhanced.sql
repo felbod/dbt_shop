@@ -13,7 +13,7 @@ select
   nps_answers.nps_answer_id
   , nps_answers.nps_module_id
   , modules.module_text
-  , concat (nps_answers.nps_module_id, '_', modules.module_text) as question_id_stage
+  , concat(nps_answers.nps_module_id, '_', modules.module_text) as question_id_stage
   , nps_answers.user_id
   , date_diff(date(nps_answers.created_at), date(users.created_at), year) as user_seniority
   , case
@@ -32,8 +32,12 @@ select
   , nps_answers.culture_short
   , nps_answers.created_at
   , date(nps_answers.created_at) as date_day
-  , extract (year from nps_answers.created_at) as date_year
+  , extract(year from nps_answers.created_at) as date_year
   , length(nps_answers.nps_answer_comment) as nps_answer_comment_length
+  , case
+      when regexp_contains(nps_answers.nps_answer_comment, r"")
+        then 1 else 0
+      end as nps_comment_category_
   , nps_answers.nps_answer_comment
 
 from nps_answers
