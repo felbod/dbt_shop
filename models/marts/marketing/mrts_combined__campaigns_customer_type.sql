@@ -1,54 +1,20 @@
 
-with campaign_performance as (
-
-  select * except (rank)
-
-    from {{ref('stg_microsoft_ads__campaign_performance')}}
-
-  union all
-
-  select * except (cost_usd)
-
-    from {{ref('stg_google_ads__campaign_performance')}}
-
-),
-
-campaign_conversions_customers as (
-
-  select *
-
-    from {{ref('stg_sea__campaign_conversions_customers')}}
-
-),
-
-campaigns as (
-
-  select *
-
-    from {{ref('stg_microsoft_ads__campaigns')}}
-
-  union all
-
-  select *
-
-    from {{ref('stg_google_ads__campaigns')}}
-
-),
-
-accounts as (
-
-  select *
-
-    from {{ref('stg_microsoft_ads__accounts')}}
-
-  union all
-
-  select *
-
-    from {{ref('stg_google_ads__accounts')}}
-
-)
-
+with
+  campaign_performance as (
+      select * except (rank) from {{ref('stg_microsoft_ads__campaign_performance')}}
+      union all
+      select * except (cost_usd) from {{ref('stg_google_ads__campaign_performance')}})
+  , campaigns as (
+      select * from {{ref('stg_microsoft_ads__campaigns')}}
+      union all
+      select * from {{ref('stg_google_ads__campaigns')}})
+  , accounts as (
+      select * from {{ref('stg_microsoft_ads__accounts')}}
+      union all
+      select * from {{ref('stg_google_ads__accounts')}})
+  , campaign_conversions_customers as (
+      select * from {{ref('stg_sea__campaign_conversions_customers')}})
+      
 select
   accounts.platform_name
   , accounts.brand_name
