@@ -47,23 +47,7 @@ select
   , date(trustedshops_answers.created_at) as date_day
   , extract (year from trustedshops_answers.created_at) as date_year
   , length(trustedshops_answers.trustedshops_answer_comment) as trustedshops_answer_comment_length
-  , replace(
-      replace(
-        replace(
-          replace(
-              replace(
-                replace(
-                  replace(
-                    replace(trustedshops_answers.trustedshops_answer_comment
-                      , 'Ã¤', 'ä')
-                    , 'Ã¼', 'ü')
-                  , 'Ã¶', 'ö')
-                , 'Ã„', 'Ä')
-              , 'Ãœ', 'Ü')
-            , 'Ã–', 'Ö')
-          , 'ÃŸ', 'ß')
-        , 'ÃƒÂª', 'ê')
-      as trustedshops_answer_comment_umlaut
+  , trustedshops_answers.trustedshops_answer_comment
 
 from trustedshops_answers
   left join users on trustedshops_answers.customer_id = users.customer_id
