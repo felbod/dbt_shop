@@ -34,10 +34,40 @@ select
   , date(nps_answers.created_at) as date_day
   , extract(year from nps_answers.created_at) as date_year
   , length(nps_answers.nps_answer_comment) as nps_answer_comment_length
+, case
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(fehler|hinweis.?\b)") then '1'
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(korrektur|korrigieren)") then '1'
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(falsch|fehl)eingaben") then '1'
+  end as nps_comment_function_errors
+, case
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)\b(tipp?|tipp?s)\b") then '1'
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(steuer|spar)tipp?") then '1'
+  end as nps_comment_function_tips
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"")
-        then 1 else 0
-      end as nps_comment_category_
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)erstatt") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)berechn(ung|et)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nach|rück)zahl") then '1'
+      end as nps_comment_function_calculation
+  , case
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(daten.*übern)") then '1'
+      end as nps_comment_function_import
+  , case
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(u|ue|ü)rz|hängt|aufgehangen|langsam)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lade.*(zeit|dauer|fehler)|laden)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bhar?kt|\bgehar?kt)") then '1'
+      end as nps_comment_category_performance
+  , case
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(hilfen|hilfe(stellung|text|feld|leiste)|(ausfüll|eingabe|informations|angaben)hilfe)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(erkl(ä|ae)rt|erl(ä|e)uter|\berkl(ä|ae)rung)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(beschr(ie|ei))") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)beispiele") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)chinesisch\b") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)abk(ü|ue)rzung") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)lesen") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)begriff") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(amts.?|fach.?|er.?|en.?|steuer.?)sprache\b") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(amts.?|fach.?|er.?|en.?|steuer.?)deutsch\b") then '1'
+      end as nps_comment_category_wording
   , nps_answers.nps_answer_comment
 
 from nps_answers
