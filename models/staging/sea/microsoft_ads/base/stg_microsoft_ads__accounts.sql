@@ -16,7 +16,7 @@ select distinct
     when o.name like 'steuererklaerung-polizei.de' then 'steuererklaerung-polizei.de'
   end as brand_name
 
-  from `planar-depth-242012.microsoft_ads_stitch.accounts` as o
+  from `planar-depth-242012.microsoft_ads__stitch.accounts` as o
 
 inner join (
 
@@ -25,7 +25,7 @@ select
   MAX(_sdc_sequence) AS seq,
   MAX(_sdc_batched_at) AS batch
 
-from `planar-depth-242012.microsoft_ads_stitch.accounts`
+from `planar-depth-242012.microsoft_ads__stitch.accounts`
 
 group by id) as oo
 

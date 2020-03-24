@@ -47,11 +47,13 @@ from (
       (STARTS_WITH(goal, "Sale R"),
         allconversions,
         0) as sales
-    , RANK() OVER (PARTITION BY timeperiod, campaignid ORDER BY _sdc_report_datetime DESC) as rank -- siehe https://www.stitchdata.com/docs/integrations/saas/bing-ads
 */
 
+    , RANK() OVER (PARTITION BY timeperiod, campaignid ORDER BY _sdc_report_datetime DESC) as rank -- siehe https://www.stitchdata.com/docs/integrations/saas/bing-ads
+
+
 from
-  `planar-depth-242012.microsoft_ads_stitch.goals_and_funnels_report`
+  `planar-depth-242012.microsoft_ads__stitch.goals_and_funnels_report`
 
 order by
   timeperiod ASC ) AS latest

@@ -10,7 +10,7 @@ select distinct
 
   
 
-  from `planar-depth-242012.microsoft_ads_stitch.campaigns` as o
+  from `planar-depth-242012.microsoft_ads__stitch.campaigns` as o
 
 inner join (
 
@@ -19,7 +19,7 @@ select
   MAX(_sdc_sequence) AS seq,
   MAX(_sdc_batched_at) AS batch
 
-from `planar-depth-242012.microsoft_ads_stitch.campaigns`
+from `planar-depth-242012.microsoft_ads__stitch.campaigns`
 
 group by id) as oo
 

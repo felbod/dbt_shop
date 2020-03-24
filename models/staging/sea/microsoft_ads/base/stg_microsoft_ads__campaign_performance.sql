@@ -19,7 +19,7 @@ from (
     , RANK() OVER (PARTITION BY timeperiod, campaignid ORDER BY _sdc_report_datetime DESC) as rank -- siehe https://www.stitchdata.com/docs/integrations/saas/bing-ads
 
   from
-    `planar-depth-242012.microsoft_ads_stitch.campaign_performance_report`
+    `planar-depth-242012.microsoft_ads__stitch.campaign_performance_report`
 
   order by
     timeperiod ASC ) AS latest
