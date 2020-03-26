@@ -23,7 +23,7 @@ with campaign_conversions_usd as (
       0) as sales
 
   from
-    `planar-depth-242012.google_ads.p_CampaignCrossDeviceConversionStats_8644635112`
+    `planar-depth-242012.google_ads__bigquery_transfer.p_CampaignCrossDeviceConversionStats_8644635112`
 
   group by
     account_id,
