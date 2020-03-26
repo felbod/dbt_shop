@@ -61,11 +61,8 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((men(ü|ue)|nutzer|programm|ziel|bediener|themen|durch|hin).?f(ü|ue)hrung)") then '1'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(f(ü|ue)hrung.+men(ü|u))") then '1'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bf(ü|ue)hrung\b)") then '1'
-<<<<<<< HEAD
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(men(ü|ue)struktur|untermen(ü|u))") then '1'
-=======
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(zurück.?(geh|spring|kehr|komm|bl(ä|ae)tt))") then '1'
->>>>>>> 287314d0750fb4278a84d7ee470240729e82eaec
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(navi)") then '1'
       end as nps_comment__function__navigation
   , case
