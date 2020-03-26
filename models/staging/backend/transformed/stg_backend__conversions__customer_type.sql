@@ -1,7 +1,7 @@
 
 with
   backend_sales as (
-    select * from {{ref('stg_backend__conversions__sales')}})
+    select * from {{ref('stg_backend__conversions__sales_revenue')}})
   , backend_signups as (
     select * from {{ref('stg_backend__conversions__signups')}})
   , backend_starts as (
