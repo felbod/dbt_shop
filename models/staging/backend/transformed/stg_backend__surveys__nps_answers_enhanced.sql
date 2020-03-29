@@ -36,60 +36,62 @@ select
   , length(nps_answers.nps_answer_comment) as nps_answer_comment_length
 
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(fehler|hinweis.?\b)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(server)")
-        then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(korrektur|korrigieren)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(falsch|fehl)eingabe") then '1'
-    end as nps_comment__function__errors
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(fehler)")
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(server)") then 'fehler'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(hinweis.?\b)") then 'hinweis'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(korrektur|korrigieren)") then 'korrektur'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(falsch|fehl)eingabe") then 'fehleingabe'
+      end as nps_comment__function__errors
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)englisc?h") then 'englisch'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)poln?isc?h") then 'polnisch'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)mutter.?sprach") then 'muttersprach'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)speak") then 'speak'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)translat") then 'translation'
-    end as nps_comment__function__translations
+      end as nps_comment__function__translations
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)\b(tipp?|tipp?s)\b") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(steuer|spar)tipp?") then '1'
-    end as nps_comment__function__tips
+    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(steuer|spar)tipp?") then 'steuertipp'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)\b(tipp?|tipp?s)\b") then 'tipp'
+      end as nps_comment__function__tips
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)rundet") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)erstatt") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)berechn(ung|et)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nach|rück)zahl") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)geld.zur(ü|ue)ck") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)rundet") then 'rundet'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)erstatt") then 'erstatt'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)berechn(ung|et)") then 'berechnung'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nachzahl") then 'nachzahl'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(rückzahl") then 'rückzahl'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)geld.zur(ü|ue)ck") then 'geld_zurück'
       end as nps_comment__function__calculation
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)spam") then '1'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(mail)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"@")
-        then '1'
+        and not regexp_contains(nps_answers.nps_answer_comment, r"@") then 'mail'
       end as nps_comment__function__email
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((men(ü|ue?)|nutzer|programm|ziel|bediener|themen|durch|hin).?f(ü|ue)hrung)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(f(ü|ue)hrung.+men(ü|u))") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((men(ü|ue)|nutzer|programm|ziel|bediener|themen|durch|hin).?f(ü|ue)hrung)") then 'führung'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(f(ü|ue)hrung.+men(ü|u))") then 'führung'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bf(ü|ue)hrung\b)") then 'führung'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\b(springt|springen|sprungen)\b)") then 'springt'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bf(ü|ue)hrung\b)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(men(ü|ue)struktur|untermen(ü|u))") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(zur(ü|ue)ck.?(geh|kehr|komm|bl(ä|ae)tt))") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(navi)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(men(ü|ue)struktur|untermen(ü|u))") then 'menü'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(zur(ü|ue)ck.?(geh|kehr|komm|bl(ä|ae)tt))") then 'zurück'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(navi)") then 'navi'
       end as nps_comment__function__navigation
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"\bEingabe.?\b") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(eingabe(maske|feld|option|system|vorrichtung))") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((zahlen|daten|datum.?|add?ress.*)eingabe)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(eintrag|ein(.?zu.?|ge)trag)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(drop.?down)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(ändern)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(?i)(ländern)")
-        then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"\bEingabe.?\b") then 'eingabe'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(eingabe(maske|feld|option|system|vorrichtung))") then 'eingabemaske'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((zahlen|daten|datum.?|add?ress.*)eingabe)") then 'dateneingabe'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(eintrag|ein(.?zu.?|ge)trag)") then 'eintrag'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(drop.?down)") then 'dropdown'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((ä|ae)ndern)")
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(?i)(ländern)") then 'ändern'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(add?res)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(mail|@)")
-        then '1'
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(mail|@)") then 'adresse'
       end as nps_comment__function__data_entry
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(paypal|kreditkarte|visa|lastschrift|berweisung|\brechnung\b)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(vorkasse") then 'vorkasse'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(paypal)") then 'paypal'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kreditkarte|visa)") then 'kreditkarte'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lastschrift)") then 'lastschrift'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(berweisung)") then 'überweisung'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\brechnung\b)") then 'rechnung'
       end as nps_comment__function__payment
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((aus.*ge(worfen|schmissen))") then 'rausgeworfen'
@@ -104,42 +106,45 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((ü|ue)bersend|versend|versand|verschick|abschick|abgeschick)") then 'versand'
       end as nps_comment__function__filing
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((daten|beleg).*abruf)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((daten.*abruf)") then 'datenabruf'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((beleg.*abruf)") then 'belegabruf'
       end as nps_comment__function__data_retrieval
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(daten.*(ü|ue)bern)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(bertrag)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(daten.*(ü|ue)bern)") then 'datenübern'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(bertrag)") then 'übertrag'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(import)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(important)")
-        then '1'
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(important)") then 'import'
       end as nps_comment__function__import
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((er.?|s)freundlich)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((ver|um)st(ä|ae)nd)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kompliziert|versteh)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((er.?|s)freundlich)") then 'nutzerfreundlich'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(verst(ä|ae)nd)") then 'verständlich'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(umst(ä|ae)nd)") then 'umständlich'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kompliziert)") then 'kompliziert'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(versteh)") then 'versteh'
       end as nps_comment__category__usability
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(misstrau)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bsicher\b)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nicht.sicher|unsicher|wirr)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(misstrau)") then 'misstrau'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bsicher\b)") then 'sicher'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nicht.sicher|unsicher|wirr)") then 'unsicher'
       end as nps_comment__category__reassurance
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(elster)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(elster)") then 'elster'
       end as nps_comment__category__elster
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preiswert|billig|kosten(los|frei))") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kassier)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preise|preis(erh(ö|oe)hung|steigerung))") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preis.*leistung)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\b(teuer|teurer)\b)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kosten(los|frei))") then 'kostenlos'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preiswert|billig)") then 'preiswert'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kassier)") then 'kassieren'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preise|preis(erh(ö|oe)hung|steigerung))") then 'preis'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(preis.*leistung)") then 'preis_leistung'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\b(teuer|teurer)\b)") then 'teuer'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(g(ü|ue)nstig)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(beg(ü|ue)nstigt|ung(ü|ue)nstig)") then '1'
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(beg(ü|ue)nstigt|ung(ü|ue)nstig)") then 'günstig'
       end as nps_comment__category__pricing
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(bersicht)") then 'übersicht'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(orientieren|orientierung)") then 'orientieren'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(fenster)")
-        and not regexp_contains(nps_answers.nps_answer_comment, r"(hilf.fenster)") then '1'
+        and not regexp_contains(nps_answers.nps_answer_comment, r"(hilf.fenster)") then 'fenster'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bschrift\b)") then 'schrift'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(layout)") then 'layout'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(aufbau\b|aufgebaut)") then 'aufbau'
@@ -157,19 +162,22 @@ select
       end as nps_comment__category__layout
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(betriebs.?system|apple|microsoft|windows|linux|android|\bi.?os\b|\bos.?x\b)") then 'betriebssystem'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(endgerät|ipad|phone|handy|tablet|laptop|desktop|\bmobil|\bpc\b|\bmac\b)") then 'endgerät'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(endgerät|mobil.*gerät|ipad|phone|handy|tablet|laptop|desktop|\bmobil|\bpc\b|\bmac\b)") then 'endgerät'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(browser|firefox|safari|edge|internet.?explorer|\bchrome\b)") then 'browser'
       end as nps_comment__category__device
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(u|ue|ü)rz|h(ä|ae)ngt|aufgehangen|langsam)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(neu.?start)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(h(ä|ae)ngen.geblieben)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lade.*(zeit|dauer|fehler)|laden|lädt|stockt)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bhar?kt|\bgehar?kt)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(server|server.?fehler)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(crash)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((lange|ewig).warte)") then '1'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((lange.bearbeitungs|warte)zeit)") then '1'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(u|ue|ü)rz)") then 'abstürz'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(h(ä|ae)ngt|aufgehangen|stockt)") then 'hängt'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(h(ä|ae)ngen.geblieben)") then 'hängt'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(langsam)") then 'langsam'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(neu.?start)") then 'neustart'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lade.*(zeit|dauer|fehler))") then 'ladezeit'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(laden|lädt)") then 'laden'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\bhar?kt|\bgehar?kt)") then 'hakt'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(server|server.?fehler)") then 'serverfehler'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(crash)") then 'crash'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((lange|ewig).warte)") then 'warten'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((lange.bearbeitungs|warte)zeit)") then 'wartezeit'
       end as nps_comment__category__performance
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)abk(ü|ue)rzung") then 'abkürzung'
