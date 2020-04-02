@@ -57,8 +57,8 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)rundet") then 'rundet'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)erstatt") then 'erstatt'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)berechn(ung|et)") then 'berechnung'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nachzahl") then 'nachzahl'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(rückzahl") then 'rückzahl'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(nachzahl)") then 'nachzahl'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(rückzahl)") then 'rückzahl'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)geld.zur(ü|ue)ck") then 'geld_zurück'
       end as nps_comment__function__calculation
   , case
@@ -86,7 +86,7 @@ select
         and not regexp_contains(nps_answers.nps_answer_comment, r"(mail|@)") then 'adresse'
       end as nps_comment__function__data_entry
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(vorkasse") then 'vorkasse'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(vorkasse)") then 'vorkasse'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(paypal)") then 'paypal'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(kreditkarte|visa)") then 'kreditkarte'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lastschrift)") then 'lastschrift'
@@ -94,20 +94,20 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\brechnung\b)") then 'rechnung'
       end as nps_comment__function__payment
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((aus.*ge(worfen|schmissen))") then 'rausgeworfen'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((passwor)") then 'passwort'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((registrier)") then 'registrieren'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((ein.*log|log.?in|logging.in)") then 'login'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((aus.*log|log.?out|logging.out)") then 'logout'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(aus.*ge(worfen|schmissen))") then 'rausgeworfen'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(passwor)") then 'passwort'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(registrier)") then 'registrieren'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(ein.*log|log.?in|logging.in)") then 'login'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(aus.*log|log.?out|logging.out)") then 'logout'
       end as nps_comment__function__data_security
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((zertifikat|certificat)") then 'zertifikat'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((\babgabe\b|abgeben)") then 'abgabe'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(zertifikat|certificat)") then 'zertifikat'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(\babgabe\b|abgeben)") then 'abgabe'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((ü|ue)bersend|versend|versand|verschick|abschick|abgeschick)") then 'versand'
       end as nps_comment__function__filing
   , case
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((daten.*abruf)") then 'datenabruf'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)((beleg.*abruf)") then 'belegabruf'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(daten.*abruf)") then 'datenabruf'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(beleg.*abruf)") then 'belegabruf'
       end as nps_comment__function__data_retrieval
   , case
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(daten.*(ü|ue)bern)") then 'datenübern'
@@ -169,7 +169,7 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(u|ue|ü)rz)") then 'abstürz'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(h(ä|ae)ngt|aufgehangen|stockt)") then 'hängt'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(h(ä|ae)ngen.geblieben)") then 'hängt'
-      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(st(langsam)") then 'langsam'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(langsam)") then 'langsam'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(neu.?start)") then 'neustart'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(lade.*(zeit|dauer|fehler))") then 'ladezeit'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(laden|lädt)") then 'laden'
