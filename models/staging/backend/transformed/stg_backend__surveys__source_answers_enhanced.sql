@@ -1,36 +1,13 @@
 
 with
   source_answers as (
-
-    select *
-
-    from {{ref('stg_backend__surveys__source_answers')}}
-
-  ),
-
-  users as (
-
-    select *
-
-    from {{ref('stg_backend__entities__users')}}
-
-  ),
-
-  options as (
-
-    select *
-
-    from {{ref('stg_backend__surveys__source_options')}}
-
-  ),
-
-  controllers as (
-
-    select *
-
-    from {{ref('stg_backend__entities__controllers')}}
-
-  )
+    select * from {{ref('stg_backend__surveys__source_answers')}})
+  , users as (
+    select * from {{ref('stg_backend__entities__users')}})
+  , options as (
+    select * from {{ref('stg_backend__surveys__source_options')}})
+  , controllers as (
+    select * from {{ref('stg_backend__entities__controllers')}})
 
 select
   source_answers.user_id
@@ -40,6 +17,10 @@ select
       when date_diff(date(source_answers.created_at), date(users.created_at), year) > 0 then 'old'
     end as user_type
   , users.created_at as user_created_at
+  , case
+      when source_answers.source_option_id < 100 then 'source'
+      when source_answers.source_option_id >= 100 then 'corona-aid'
+    end as survey_type
   , source_answers.source_option_id
   , options.option_text
   , source_answers.customer_action_id
@@ -50,6 +31,8 @@ select
   , source_answers.culture_short
   , source_answers.created_at
   , date(source_answers.created_at) as date_day
+  , date_trunc (date(source_answers.created_at), week(monday)) as date_week
+--  , date_trunc (date(source_answers.created_at), year) as date_year -- Alternative mit "1.1." als Zusatz bei Jahr
   , extract (year from source_answers.created_at) as date_year
 
 from source_answers

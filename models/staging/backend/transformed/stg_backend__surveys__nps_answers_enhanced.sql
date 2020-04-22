@@ -50,7 +50,7 @@ select
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)translat") then 'translation'
       end as nps_comment__function__translations
   , case
-    when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(steuer|spar)tipp?") then 'steuertipp'
+      when regexp_contains(nps_answers.nps_answer_comment, r"(?i)(steuer|spar)tipp?") then 'steuertipp'
       when regexp_contains(nps_answers.nps_answer_comment, r"(?i)\b(tipp?|tipp?s)\b") then 'tipp'
       end as nps_comment__function__tips
   , case
