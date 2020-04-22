@@ -14,7 +14,7 @@ with
       select * from {{ref('stg_google_ads__accounts')}})
   , campaign_conversions_customers as (
       select * from {{ref('stg_sea__campaign_conversions_customers')}})
-      
+
 select
   accounts.platform_name
   , accounts.brand_name
@@ -68,11 +68,11 @@ from campaign_performance
     and campaign_performance.campaign_id = campaign_conversions_customers.campaign_id
 
 group by
-  accounts.platform_name,
-  accounts.brand_name,
-  campaign_performance.account_id,
-  campaign_performance.campaign_id,
-  campaign_performance.date_day,
-  accounts.account_name,
-  campaigns.campaign_name,
-  date_year
+  accounts.platform_name
+  , accounts.brand_name
+  , campaign_performance.account_id
+  , campaign_performance.campaign_id
+  , campaign_performance.date_day
+  , accounts.account_name
+  , campaigns.campaign_name
+  , date_year
