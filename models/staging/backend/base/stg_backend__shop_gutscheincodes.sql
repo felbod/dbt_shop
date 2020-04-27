@@ -5,13 +5,13 @@ code_art as code_type
 , verbraucht
 , anzahl_einloesungen
 , kundenaction_id
-, updated_at as date_day__redemption
+--, updated_at as date_day__redemption
 , created_at
 , bemerkung as comment
 , controller as controller_id
 , registrierungsdatum as signup_date
 , einloesedatum as redemption_date
-, user_id
+, cast (user_id as int64) as user_id
 , kaufpreis_netto as price_paid
 , artikelpreis_netto as basket_value
 
