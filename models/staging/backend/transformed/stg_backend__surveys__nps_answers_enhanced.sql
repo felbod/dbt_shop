@@ -32,6 +32,7 @@ select
   , nps_answers.culture_short
   , nps_answers.created_at
   , date(nps_answers.created_at) as date_day
+  , date_trunc (date(nps_answers.created_at), week(monday)) as date_week
   , extract(year from nps_answers.created_at) as date_year
   , length(nps_answers.nps_answer_comment) as nps_answer_comment_length
 
