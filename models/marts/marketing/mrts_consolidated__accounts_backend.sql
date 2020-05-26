@@ -34,6 +34,9 @@ with
 select
   platform_data.date_day
   , extract (year from platform_data.date_day) as date_year
+  , extract (isoyear from platform_data.date_day) as date_isoyear
+  , extract (isoweek from platform_data.date_day) as date_isoweek
+  , date_trunc (platform_data.date_day, week(monday)) as date_week
   , platform_data.account_name
   , platform_data.brand_name
   , sum(platform_data.impressions) as impressions
