@@ -22,6 +22,16 @@ select
   , campaign_performance.campaign_id
   , accounts.account_name
   , campaigns.campaign_name
+  , case
+      when regexp_contains(campaigns.campaign_name, r"Funnel") then 'Funnel'
+      when regexp_contains(campaigns.campaign_name, r"Brand") then 'Brand'
+      when regexp_contains(campaigns.campaign_name, r"Remarketing") then 'Remarketing'
+      when regexp_contains(campaigns.campaign_name, r"Display") then 'Display'
+      when regexp_contains(campaigns.campaign_name, r"RLSA") then 'RLSA'
+      when regexp_contains(campaigns.campaign_name, r"YouTube") then 'YouTube'
+      when regexp_contains(campaigns.campaign_name, r"Shopping") then 'Shopping'
+      else 'Search'
+      end as campaign_type
   , campaign_performance.date_day
   , extract (year from campaign_performance.date_day) as date_year
   , sum(campaign_performance.impressions) as impressions
