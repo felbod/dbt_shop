@@ -12,6 +12,9 @@ with
 select
   backend_sales.date_day
   , extract (year from backend_sales.date_day) as date_year
+  , extract (isoyear from backend_sales.date_day) as date_isoyear
+  , extract (isoweek from backend_sales.date_day) as date_isoweek
+  , date_trunc (backend_sales.date_day, week(monday)) as date_week
   , backend_sales.controller_id
   , controllers.brand_name
   , (backend_sales.revenue_net_eur__old_customers
