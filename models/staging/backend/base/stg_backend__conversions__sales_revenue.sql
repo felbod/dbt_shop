@@ -12,7 +12,7 @@ from (
 
     /* Revenues from backend:
     - Reported as gross values in Euro
-    - Updated every night
+    - Updated every morning @ 6:05 a.m. UTC (08:05 Berlin time)
     - Includes values for previous 30 (?) days */
     , revenue_old_customers / 1.19 as revenue_net_eur__old_customers
     , revenue_new_customers / 1.19 as revenue_net_eur__new_customers
