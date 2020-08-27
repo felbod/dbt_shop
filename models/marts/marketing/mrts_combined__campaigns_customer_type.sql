@@ -47,7 +47,7 @@ select
         , 0
         , sum(campaign_conversions_customers.clicks_old_customers))
         as clicks_new_customers
-  , sum(clicks_old_customers) as clicks_old_customers
+  , sum(campaign_conversions_customers.clicks_old_customers) as clicks_old_customers
   , sum(campaign_performance.conversions) as conversions
   , sum(campaign_conversions_customers.conversion_value_eur) as conversion_value_eur
   , sum(campaign_conversions_customers.conversion_value_eur_new_customers) as conversion_value_eur_new_customers
