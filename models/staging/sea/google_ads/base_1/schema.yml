@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_google_ads_2__accounts
+  - name: stg_google_ads_1__accounts
     description: This table contains a list of accounts with Google Ads.
     columns:
       - name: account_id
@@ -13,7 +13,7 @@ models:
           - accepted_values:
               values: [USD]
 
-  - name: stg_google_ads_2__campaign_conversions
+  - name: stg_google_ads_1__campaign_conversions
     description: This table contains conversion data for Google Ads campaigns.
     tests:
       - unique:
@@ -23,16 +23,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_google_ads_2__accounts')
+              to: ref('stg_google_ads_1__accounts')
               field: account_id
       - name: campaign_id
         tests:
           - not_null
           - relationships:
-              to: ref('stg_google_ads_2__campaigns')
+              to: ref('stg_google_ads_1__campaigns')
               field: campaign_id
 
-  - name: stg_google_ads_2__campaign_performance
+  - name: stg_google_ads_1__campaign_performance
     description: This table contains performance data for Google Ads campaigns.
     tests:
       - unique:
@@ -42,16 +42,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_google_ads_2__accounts')
+              to: ref('stg_google_ads_1__accounts')
               field: account_id
       - name: campaign_id
         tests:
           - not_null
           - relationships:
-              to: ref('stg_google_ads_2__campaigns')
+              to: ref('stg_google_ads_1__campaigns')
               field: campaign_id
 
-  - name: stg_google_ads_2__campaigns
+  - name: stg_google_ads_1__campaigns
     description: This table contains a list of campaigns with Google Ads.
     columns:
       - name: campaign_id
