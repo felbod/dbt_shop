@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_google_ads_2__accounts
+    description: This table contains a list of accounts with Google Ads.
+    columns:
+      - name: account_id
+        tests:
+          - unique
+          - not_null
+      - name: account_currency_code
+        tests:
+          - accepted_values:
+              values: [USD]
+
+  - name: stg_google_ads_2__campaign_conversions
+    description: This table contains conversion data for Google Ads campaigns.
+    tests:
+      - unique:
+          column_name: "concat(cast (date_day as string), cast (campaign_id as string), conversion_name)"
+    columns:
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads_2__accounts')
+              field: account_id
+      - name: campaign_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads_2__campaigns')
+              field: campaign_id
+
+  - name: stg_google_ads_2__campaign_performance
+    description: This table contains performance data for Google Ads campaigns.
+    tests:
+      - unique:
+          column_name: "concat(cast (date_day as string), cast (campaign_id as string))"
+    columns:
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads_2__accounts')
+              field: account_id
+      - name: campaign_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_google_ads_2__campaigns')
+              field: campaign_id
+
+  - name: stg_google_ads_2__campaigns
+    description: This table contains a list of campaigns with Google Ads.
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
