@@ -32,6 +32,11 @@ with
   , exchange_rates as (
     select * from {{ref('stg_external__exchange_rates_all_dates')}})
 
+    /*
+      - For quality assurance
+      - To find dates without values
+      - These will appear as NONE in the result
+      */
   , dates as(
     select date_day
       from unnest(

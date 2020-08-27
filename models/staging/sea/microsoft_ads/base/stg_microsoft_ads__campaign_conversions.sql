@@ -34,6 +34,11 @@ with
     where
       latest.rank = 1)
 
+    /*
+      - For quality assurance
+      - To find dates without values
+      - These will appear as NONE in the result
+      */
   , dates as(
     select date_day
       from unnest(
