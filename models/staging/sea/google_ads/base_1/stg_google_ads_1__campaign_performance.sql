@@ -24,11 +24,12 @@ with
       - For quality assurance
       - To find dates without values
       - These will appear as NONE in the result
+      - Excluding today
       */
-  , dates as(
+  , dates as (
     select date_day
       from unnest(
-          generate_date_array(date('2018-01-01'), current_date(), interval 1 day)
+          generate_date_array (date('2018-01-01'), date_sub(current_date, interval 1 day), interval 1 day)
       ) as date_day)
 
 select
