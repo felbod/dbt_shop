@@ -11,7 +11,7 @@ with
       sum (ConversionValue) as conversion_value_usd,
       sum (Cost / 1000000) as cost_usd
     from
-      `planar-depth-242012.google_ads__bigquery_transfer.p_CampaignBasicStats_8644635112`
+      `planar-depth-242012.google_ads__transfer.p_CampaignBasicStats_8644635112`
     group by
       date_day,
       account_id,
