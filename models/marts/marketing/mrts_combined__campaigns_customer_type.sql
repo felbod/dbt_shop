@@ -1,9 +1,14 @@
 
 with
   campaign_performance as (
+    select
+      *
+      , safe_divide(cost_eur, clicks) as cost_per_click_eur
+    from (
       select * except (rank) from {{ref('stg_microsoft_ads__campaign_performance')}}
       union all
       select * except (cost_usd) from {{ref('stg_google_ads__campaign_performance')}})
+    )
   , campaigns as (
       select * from {{ref('stg_microsoft_ads__campaigns')}}
       union all
@@ -42,10 +47,7 @@ select
   , sum(campaign_performance.impressions) as impressions
   , sum(campaign_performance.clicks) as clicks
   , sum(campaign_performance.clicks)
-    - if(
-      sum(campaign_conversions_customers.clicks_old_customers) is null
-        , 0
-        , sum(campaign_conversions_customers.clicks_old_customers))
+    - ifnull(sum(campaign_conversions_customers.clicks_old_customers), '0')
         as clicks_new_customers
   , sum(campaign_conversions_customers.clicks_old_customers) as clicks_old_customers
   , sum(campaign_performance.conversions) as conversions
@@ -53,6 +55,13 @@ select
   , sum(campaign_conversions_customers.conversion_value_eur_new_customers) as conversion_value_eur_new_customers
   , sum(campaign_conversions_customers.conversion_value_eur_old_customers) as conversion_value_eur_old_customers
   , sum(campaign_performance.cost_eur) as cost_eur
+  , sum(campaign_performance.cost_eur)
+    - (sum(campaign_performance.cost_per_click_eur) * sum(campaign_conversions_customers.clicks_old_customers))
+    as cost_eur_new_customers
+  , sum(campaign_performance.cost_per_click_eur) * sum(campaign_conversions_customers.clicks_old_customers)
+    as cost_eur_old_customers
+
+/*
   , sum(campaign_performance.cost_eur)
     - safe_divide(
       sum(campaign_performance.cost_eur)
@@ -62,12 +71,15 @@ select
         , 0
         , sum(campaign_conversions_customers.clicks_old_customers))
         as cost_eur_new_customers
+
   , sum(campaign_performance.cost_per_click_eur)
     * if(
       sum(campaign_conversions_customers.clicks_old_customers) is null
       , 0
       , sum(campaign_conversions_customers.clicks_old_customers))
       as cost_eur_old_customers
+*/
+
   , sum(campaign_conversions_customers.signups) as signups
   , sum(campaign_conversions_customers.starts) as starts
   , sum(campaign_conversions_customers.starts__new_customers) as starts__new_customers

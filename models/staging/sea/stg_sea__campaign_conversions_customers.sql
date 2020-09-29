@@ -11,6 +11,7 @@ select
   , platform
   , account_id
   , campaign_id
+
   , sum (signups) as signups
   , sum (conversion_value_eur) as conversion_value_eur
   , sum (is_new_customers * conversion_value_eur)

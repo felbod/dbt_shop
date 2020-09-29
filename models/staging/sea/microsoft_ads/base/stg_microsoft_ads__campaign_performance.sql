@@ -40,13 +40,14 @@ select
   campaign_performance.account_id
   , campaign_performance.campaign_id
   , dates.date_day
+
   , campaign_performance.impressions
   , campaign_performance.clicks
   , campaign_performance.conversions
   , campaign_performance.conversion_value_eur
   , campaign_performance.cost_eur
-  , campaign_performance.cost_per_click_eur
   , campaign_performance.rank
+--  , campaign_performance.cost_per_click_eur  -- cpc calculated in subsequent query
 
 from
   campaign_performance
