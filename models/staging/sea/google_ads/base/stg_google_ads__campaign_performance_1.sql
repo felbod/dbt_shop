@@ -8,6 +8,7 @@ with
       , AdNetworkType2 as ad_network_type_2
       , Date as date_day
       , sum (Impressions) as impressions
+      , if (AdNetworkType1 = "SEARCH", sum(Impressions), 0) as search_impressions
       , sum (Clicks) as clicks
       , sum (Conversions) as conversions
       , sum (ConversionValue) as conversion_value_usd
@@ -60,15 +61,13 @@ select
 --  , campaign_performance_usd.ad_network_type_2
 
   , sum(campaign_performance_usd.impressions) as impressions
+  , sum(campaign_performance_usd.search_impressions) as search_impressions
   , sum(campaign_performance_usd.clicks) as clicks
   , sum(campaign_performance_usd.conversions) as conversions
-  , sum(campaign_performance_usd.conversion_value_usd / exchange_rates.exchange_rate_eur_usd)
-    as conversion_value_eur
+  , sum(campaign_performance_usd.conversion_value_usd / exchange_rates.exchange_rate_eur_usd) as conversion_value_eur
   , sum(campaign_performance_usd.cost_usd / exchange_rates.exchange_rate_eur_usd) as cost_eur
   , sum(campaign_cross_device.search_impression_share) as search_impression_share
-  , sum(
-      safe_divide(campaign_performance_usd.impressions, campaign_cross_device.search_impression_share))
-      as search_eligible_impressions
+  , sum(safe_divide(campaign_performance_usd.impressions, campaign_cross_device.search_impression_share)) as search_eligible_impressions
   , sum(campaign_performance_usd.cost_usd) as cost_usd  -- only with Google Ads
 /* -- cpc calculated in subsequent query
   , safe_divide(

@@ -42,9 +42,11 @@ select
       when regexp_contains(campaigns.campaign_name, r"RLSA") then 'RLSA'
       else 'Other'
       end as campaign_subtype
-  , campaign_performance.date_day
+--  , campaign_performance.date_day
+  , date_trunc (campaign_performance.date_day, month) as date_month
   , extract (year from campaign_performance.date_day) as date_year
   , sum(campaign_performance.impressions) as impressions
+  , sum(campaign_performance.search_impressions) as search_impressions
   , sum(campaign_performance.search_eligible_impressions) as search_eligible_impressions
   , sum(campaign_performance.clicks) as clicks
   , sum(campaign_performance.clicks)
@@ -100,7 +102,8 @@ group by
   , accounts.brand_name
   , campaign_performance.account_id
   , campaign_performance.campaign_id
-  , campaign_performance.date_day
+--  , campaign_performance.date_day
   , accounts.account_name
   , campaigns.campaign_name
   , date_year
+  , date_month

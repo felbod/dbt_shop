@@ -32,7 +32,7 @@ with
         , CampaignId as campaign_id
         , AdGroupId as adgroup_id
         , CriterionId as keyword_id
-        , CriteriaType as criterion_type
+--        , CriteriaType as criterion_type
         , DisplayName as display_name
         , CreativeQualityScore as creative_quality_score_text
         , PostClickQualityScore as landingpage_quality_score_text

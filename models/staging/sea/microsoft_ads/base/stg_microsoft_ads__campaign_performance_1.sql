@@ -8,12 +8,13 @@ with
         , campaignid as campaign_id
         , cast(timeperiod as date) as date_day
         , impressions as impressions
+        , impressions as search_impressions
         , (impressionsharepercent / 100) as search_impression_share
         , clicks as clicks
         , conversions as conversions
         , revenue as conversion_value_eur
         , spend as cost_eur
-        , safe_divide(spend, clicks) as cost_per_click_eur
+--        , safe_divide(spend, clicks) as cost_per_click_eur
         , RANK() OVER (PARTITION BY timeperiod, campaignid ORDER BY _sdc_report_datetime DESC) as rank -- siehe https://www.stitchdata.com/docs/integrations/saas/bing-ads
       from
         `planar-depth-242012.microsoft_ads__stitch__1.campaign_performance_report`
@@ -40,13 +41,13 @@ select
   , dates.date_day
 
   , campaign_performance.impressions
+  , campaign_performance.search_impressions
   , campaign_performance.clicks
   , campaign_performance.conversions
   , campaign_performance.conversion_value_eur
   , campaign_performance.cost_eur
   , campaign_performance.search_impression_share
-  , safe_divide(campaign_performance.impressions, campaign_performance.search_impression_share)
-    as search_eligible_impressions
+  , safe_divide(campaign_performance.impressions, campaign_performance.search_impression_share) as search_eligible_impressions
   , campaign_performance.rank   -- only with Microsoft Ads
 --  , campaign_performance.cost_per_click_eur  -- cpc calculated in subsequent query
 
