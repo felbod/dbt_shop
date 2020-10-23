@@ -21,7 +21,7 @@ with
       , sum(starts__old_customers) as starts__old_customers
       , sum(sales__new_customers) as sales__new_customers
       , sum(sales__old_customers) as sales__old_customers
-      from {{ref('mrts_combined__campaigns_customer_type')}}
+      from {{ref('mrts_combined__campaigns__customer_type')}}
       group by
   #    platform_name
   #    , account_id
