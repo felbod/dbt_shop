@@ -18,7 +18,8 @@ with
       union all
       select * from {{ref('stg_google_ads__accounts')}})
   , campaign_conversions_customers as (
-      select * from {{ref('stg_sea__campaign_conversions_customers')}})
+      select * from {{ref('stg_sea__campaign_conversions_customers')}}
+    )
 
 select
   accounts.platform_name
@@ -47,7 +48,7 @@ select
   , sum(campaign_performance.impressions) as impressions
   , sum(campaign_performance.clicks) as clicks
   , sum(campaign_performance.clicks)
-    - ifnull(sum(campaign_conversions_customers.clicks_old_customers), '0')
+    - sum(campaign_conversions_customers.clicks_old_customers)
         as clicks_new_customers
   , sum(campaign_conversions_customers.clicks_old_customers) as clicks_old_customers
   , sum(campaign_performance.conversions) as conversions

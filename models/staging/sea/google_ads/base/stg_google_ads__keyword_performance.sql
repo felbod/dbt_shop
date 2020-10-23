@@ -19,7 +19,8 @@ with
       , account_id
       , campaign_id
       , adgroup_id
-      , CriterionId)
+      , CriterionId
+    )
 
   , exchange_rates as (
     select * from {{ref('stg_external__exchange_rates_all_dates')}})

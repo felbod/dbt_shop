@@ -1,3 +1,9 @@
+/*
+  _1: New version including
+    - search_impressions and search_eligible_impressions 
+    - Grouping by date_month
+*/
+
 
 with
   campaign_performance as (
