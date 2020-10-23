@@ -1,7 +1,7 @@
 version: 2
 
 models:
-#  - name: mrts_consolidated__accounts_backend
+#  - name: mrts_consolidated__accounts__backend
 #    description: This table contains performance and conversion data Google Ads and Microsoft Ads combined with backend data at the account level.
 # Deactivated due to OAuth problems when accessing Google sheets:
 # https://github.com/fishtown-analytics/dbt/issues/1518

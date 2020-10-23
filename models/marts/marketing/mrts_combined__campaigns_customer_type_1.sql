@@ -11,9 +11,9 @@ with
       *
       , safe_divide(cost_eur, clicks) as cost_per_click_eur
     from (
-      select * except (rank) from {{ref('stg_microsoft_ads__campaign_performance_1')}}
+      select * except (rank) from {{ref('stg_microsoft_ads__campaigns__performance_1')}}
       union all
-      select * except (cost_usd) from {{ref('stg_google_ads__campaign_performance_1')}})
+      select * except (cost_usd) from {{ref('stg_google_ads__campaigns__performance_1')}})
     )
   , campaigns as (
       select * from {{ref('stg_microsoft_ads__campaigns')}}
@@ -24,7 +24,7 @@ with
       union all
       select * from {{ref('stg_google_ads__accounts')}})
   , campaign_conversions_customers as (
-      select * from {{ref('stg_sea__campaign_conversions_customers')}})
+      select * from {{ref('stg_sea__campaigns__conversions_customers')}})
 
 select
   accounts.platform_name

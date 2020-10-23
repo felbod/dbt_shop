@@ -17,7 +17,7 @@ models:
           - unique
           - not_null
 
-  - name: stg_microsoft_ads__campaign_performance
+  - name: stg_microsoft_ads__campaigns__performance
     description: This table contains performance data for Microsoft Ads campaigns.
     columns:
       - name: account_id
@@ -33,7 +33,7 @@ models:
               to: ref('stg_microsoft_ads__campaigns')
               field: campaign_id
 
-  - name: stg_microsoft_ads__campaign_conversions
+  - name: stg_microsoft_ads__campaigns__conversions
     description: This table contains conversion data for Microsoft Ads campaigns.
     columns:
       - name: account_id

@@ -1,10 +1,10 @@
 
 with campaign_conversions as (
   select *, 'Google Ads' as platform
-    from {{ref('stg_google_ads__campaign_conversions')}}
+    from {{ref('stg_google_ads__campaigns__conversions')}}
   union all
   select * except (rank), 'Microsoft Ads' as platform
-    from {{ref('stg_microsoft_ads__campaign_conversions')}})
+    from {{ref('stg_microsoft_ads__campaigns__conversions')}})
 
 select
   date_day

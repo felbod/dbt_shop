@@ -9,25 +9,25 @@
         date_day, account_id
       , 'Google Ads' as platform
       , 'campaign_performance' as table
-        from {{ref('stg_google_ads__campaign_performance')}}
+        from {{ref('stg_google_ads__campaigns__performance')}}
     union all
     select
         date_day, account_id
       , 'Google Ads' as platform
       , 'campaign_conversions' as table
-        from {{ref('stg_google_ads__campaign_conversions')}}
+        from {{ref('stg_google_ads__campaigns__conversions')}}
     union all
     select
         date_day, account_id
       , 'Microsoft Ads' as platform
       , 'campaign_conversions' as table
-        from {{ref('stg_microsoft_ads__campaign_performance')}}
+        from {{ref('stg_microsoft_ads__campaigns__performance')}}
     union all
     select
         date_day, account_id
       , 'Microsoft Ads' as platform
       , 'campaign_conversions' as table
-        from {{ref('stg_microsoft_ads__campaign_conversions')}}
+        from {{ref('stg_microsoft_ads__campaigns__conversions')}}
       )
 
   select *

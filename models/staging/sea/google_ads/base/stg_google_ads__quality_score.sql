@@ -43,7 +43,7 @@ select
   , sum(landingpage_quality_score_opt_impressions) as landingpage_quality_score_opt_impressions
   , sum(ctr_quality_score_opt_impressions) as ctr_quality_score_opt_impressions
 
-from {{ref('stg_google_ads__quality_score_base')}}
+from {{ref('stg_google_ads__quality_score__base')}}
 
 group by
     brand_name

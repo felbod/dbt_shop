@@ -1,7 +1,7 @@
 
 with search_query_conversions as (
   select *, 'Google Ads' as platform
-    from {{ref('stg_google_ads__search_query_conversions')}}
+    from {{ref('stg_google_ads__search_queries__conversions')}}
   )
 
 select

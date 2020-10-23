@@ -5,7 +5,7 @@ with
       *
       , safe_divide(cost_eur, clicks) as cost_per_click_eur
     from (
-      select * except (cost_usd) from {{ref('stg_google_ads__search_query_performance')}})
+      select * except (cost_usd) from {{ref('stg_google_ads__search_queries__performance')}})
     )
   , campaigns as (
 --      select * from {{ref('stg_microsoft_ads__campaigns')}}
@@ -16,7 +16,7 @@ with
 --      union all
       select * from {{ref('stg_google_ads__accounts')}})
   , search_query_conversions_customers as (
-      select * from {{ref('stg_sea__search_query_conversions_customers')}}
+      select * from {{ref('stg_sea__search_queries__conversions_customers')}}
     )
 
 select

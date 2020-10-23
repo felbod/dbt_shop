@@ -76,7 +76,7 @@ with
         , QualityScore as quality_score
         , _DATA_DATE as date_day
 
-        from {{ref('stg_google_ads__quality_score_data')}}
+        from {{ref('stg_google_ads__quality_score__data')}}
 
         where
           HasQualityScore is true
@@ -107,7 +107,7 @@ with
       select * from {{ref('stg_google_ads__adgroups')}})
 
   , keywords as (
-      select * from {{ref('stg_google_ads__keyword_performance')}})
+      select * from {{ref('stg_google_ads__keywords__performance')}})
 
 select
     brand_name

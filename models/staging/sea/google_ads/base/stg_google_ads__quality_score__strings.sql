@@ -51,7 +51,7 @@ from
     select
       split(display_name, " ") as keywords
       , *
-    from {{ref('stg_google_ads__quality_score_base')}}
+    from {{ref('stg_google_ads__quality_score__base')}}
     )
   , unnest(keywords) as strings
 

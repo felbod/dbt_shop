@@ -22,7 +22,7 @@ with
         sum(AllConversions),
         0) as sales
     from
-      `planar-depth-242012.google_ads__transfer_1.p_CampaignCrossDeviceConversionStats_8644635112`
+      `planar-depth-242012.google_ads__transfer.p_CampaignCrossDeviceConversionStats_8644635112`
     group by
       account_id,
       campaign_id,
@@ -30,7 +30,7 @@ with
       conversion_name)
 
   , exchange_rates as (
-    select * from {{ref('stg_external__exchange_rates_all_dates')}})
+    select * from {{ref('stg_external__exchange_rates__all_dates')}})
 
     /*
       - For quality assurance

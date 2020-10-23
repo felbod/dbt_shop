@@ -11,14 +11,14 @@ with
       sum (ConversionValue) as conversion_value_usd,
       sum (Cost / 1000000) as cost_usd
     from
-      `planar-depth-242012.google_ads__transfer_1.p_CampaignBasicStats_8644635112`
+      `planar-depth-242012.google_ads__transfer.p_CampaignBasicStats_8644635112`
     group by
       date_day,
       account_id,
       campaign_id)
 
   , exchange_rates as (
-    select * from {{ref('stg_external__exchange_rates_all_dates')}})
+    select * from {{ref('stg_external__exchange_rates__all_dates')}})
 
     /*
       - For quality assurance
@@ -36,17 +36,20 @@ select
   campaign_performance_usd.account_id
   , campaign_performance_usd.campaign_id
   , dates.date_day
+
   , campaign_performance_usd.impressions
   , campaign_performance_usd.clicks
   , campaign_performance_usd.conversions
   , campaign_performance_usd.conversion_value_usd / exchange_rates.exchange_rate_eur_usd as conversion_value_eur
-  , campaign_performance_usd.cost_usd
   , campaign_performance_usd.cost_usd / exchange_rates.exchange_rate_eur_usd as cost_eur
+  , campaign_performance_usd.cost_usd
+/* -- cpc calculated in subsequent query
   , safe_divide(
     campaign_performance_usd.cost_usd,
     campaign_performance_usd.clicks)
     / exchange_rates.exchange_rate_eur_usd
     as cost_per_click_eur
+*/
 
 from
   campaign_performance_usd

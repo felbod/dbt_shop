@@ -2,7 +2,7 @@ version: 2
 
 models:
 
-  - name: stg_sea__campaign_conversions_customers
+  - name: stg_sea__campaigns__conversions_customers
     description: This table contains conversion data for Google Ads and Microsoft Ads campaigns, split by new and old customers.
     tests:
       - unique:

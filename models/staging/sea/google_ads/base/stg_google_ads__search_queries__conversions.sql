@@ -39,7 +39,7 @@ with
     )
 
   , exchange_rates as (
-    select * from {{ref('stg_external__exchange_rates_all_dates')}})
+    select * from {{ref('stg_external__exchange_rates__all_dates')}})
 
     /*
       - For quality assurance
